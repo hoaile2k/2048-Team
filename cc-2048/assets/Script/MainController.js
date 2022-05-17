@@ -9,8 +9,6 @@ cc.Class({
        
     },
 
-    // LIFE-CYCLE CALLBACKS:
-
     onLoad () {
         Emitter.instance = new Emitter()
 
