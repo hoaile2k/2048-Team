@@ -139,7 +139,6 @@ cc.Class({
                     arrayBlock[index] = combinedTotal
                     arrayBlock[index + 1] = 0
                 }
-
             }
 
         }
@@ -147,13 +146,18 @@ cc.Class({
     combineRowRight(listBlock, arrayBlock) {
         for (let index = 0; index <= 15; index++) {
             if (arrayBlock[index] === arrayBlock[index + 1]) {
-                cc.log(index + 1)
 
-
-
+                if ((index + 1) % 4 == 0) {
+                    cc.log(true)
+                }
+                else {
+                    let combinedTotal = arrayBlock[index] + arrayBlock[index + 1]
+                    listBlock[index+1].getComponent("block").labelPrefab.string = combinedTotal
+                    listBlock[index].getComponent("block").labelPrefab.string = 0
+                    arrayBlock[index+1] = combinedTotal
+                    arrayBlock[index] = 0
+                }
             }
-
-
 
         }
     },
@@ -171,7 +175,7 @@ cc.Class({
     },
 
     combineColumnDown(listBlock, arrayBlock) {
-        for (let index = 15; index >= 0; index--) {
+        for (let index = 0; index <= 15; index++) {
             if (arrayBlock[index] == arrayBlock[index + this._width]) {
                 let combinedTotal = arrayBlock[index] + arrayBlock[index + this._width]
                 listBlock[index + this._width].getComponent("block").labelPrefab.string = combinedTotal
@@ -185,7 +189,7 @@ cc.Class({
 
     moveRightCombined(listBlock, arrayBlock) {
         this.moveRight(listBlock, arrayBlock)
-        this.combineRowLeft(listBlock, arrayBlock)
+        this.combineRowRight(listBlock, arrayBlock)
         this.moveRight(listBlock, arrayBlock)
         Emitter.instance.emit(emitName.generate)
 

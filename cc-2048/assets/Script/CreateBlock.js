@@ -47,10 +47,17 @@ cc.Class({
         this.generate()
     },
     generate() {
+        let generateNumber = [2,4]
+        let random = generateNumber[Math.floor(Math.random()*generateNumber.length)]
         let randomNumber = Math.floor(Math.random() * this._listBlock.length)
         if (this._arrayBlock[randomNumber]==0) {
-            this._arrayBlock[randomNumber] = 2
-            this._listBlock[randomNumber].getComponent("block").labelPrefab.string = 2
+            this._arrayBlock[randomNumber] = random
+            this._listBlock[randomNumber].getComponent("block").labelPrefab.string = random
+            cc.tween(this._listBlock[randomNumber])
+                .to(0, {scale:0, opacity: 0})
+                .to(0.2, {scale: 1, opacity: 255})
+                .start()
+            // cc.log()
         } else { this.generate() }
         Emitter.instance.emit(emitName.blockColor, this._listBlock, this._arrayBlock)
     },
