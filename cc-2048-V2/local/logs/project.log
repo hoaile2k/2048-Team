@@ -1,0 +1,68 @@
+2022-05-17T09:11:51.363Z - normal: Load ~/.CocosCreator/settings.json
+2022-05-17T09:11:51.407Z - normal: Initializing Asset Database
+2022-05-17T09:11:51.409Z - normal: checking language setting...
+2022-05-17T09:11:51.409Z - normal: Language: en
+2022-05-17T09:11:51.921Z - success: preview server running at http://localhost:7456
+2022-05-17T09:11:51.936Z - success: protocol editor-framework registered
+2022-05-17T09:11:51.941Z - success: protocol app registered
+2022-05-17T09:11:51.941Z - success: protocol theme registered
+2022-05-17T09:11:51.941Z - success: protocol packages registered
+2022-05-17T09:11:51.941Z - success: protocol uuid registerred
+2022-05-17T09:11:51.941Z - success: protocol db registerred
+2022-05-17T09:11:51.941Z - success: protocol thumbnail registerred
+2022-05-17T09:11:51.941Z - success: protocol unpack registerred
+2022-05-17T09:11:51.941Z - success: protocol disable-commonjs registerred
+2022-05-17T09:11:53.600Z - normal: connected!
+2022-05-17T09:11:53.602Z - normal: Check project /Users/gemi/Documents/GitHub/2048-Team/cc-2048-V2
+2022-05-17T09:11:53.603Z - normal: Initializing project /Users/gemi/Documents/GitHub/2048-Team/cc-2048-V2
+2022-05-17T09:11:53.845Z - normal: Initializing Cocos2d
+2022-05-17T09:11:54.315Z - normal: Initializing engine extends
+2022-05-17T09:11:54.334Z - success: alipay-adapter loaded
+2022-05-17T09:11:54.341Z - success: asset-db-debugger loaded
+2022-05-17T09:11:54.346Z - success: baidu-adapter loaded
+2022-05-17T09:11:54.355Z - success: color-picker loaded
+2022-05-17T09:11:54.443Z - success: fb-audience-network loaded
+2022-05-17T09:11:54.470Z - success: fb-live-stream loaded
+2022-05-17T09:11:54.472Z - success: google-play-instant loaded
+2022-05-17T09:11:54.475Z - success: huawei-runtime loaded
+2022-05-17T09:11:54.619Z - success: cpk-publish loaded
+2022-05-17T09:11:54.620Z - success: jsb-adapter loaded
+2022-05-17T09:11:54.623Z - success: oppo-runtime loaded
+2022-05-17T09:11:54.626Z - success: package-manager loaded
+2022-05-17T09:11:54.696Z - success: qqplay-adapter loaded
+2022-05-17T09:11:54.697Z - success: runtime-dev-tools loaded
+2022-05-17T09:11:54.700Z - success: sdkbox loaded
+2022-05-17T09:11:54.703Z - success: tester loaded
+2022-05-17T09:11:54.705Z - success: ui-kit-preview-extra loaded
+2022-05-17T09:11:54.707Z - success: ui-kit-preview loaded
+2022-05-17T09:11:54.710Z - success: ui-kit loaded
+2022-05-17T09:11:54.713Z - success: vivo-runtime loaded
+2022-05-17T09:11:54.713Z - success: weapp-adapter loaded
+2022-05-17T09:11:54.714Z - success: xiaomi-adapter loaded
+2022-05-17T09:11:54.715Z - success: alipay-minigame loaded
+2022-05-17T09:11:54.754Z - success: assets loaded
+2022-05-17T09:11:54.756Z - success: builder loaded
+2022-05-17T09:11:54.930Z - success: cocos-services loaded
+2022-05-17T09:11:54.944Z - success: console loaded
+2022-05-17T09:11:54.973Z - success: fb-instant-games loaded
+2022-05-17T09:11:54.976Z - success: game-window loaded
+2022-05-17T09:11:54.977Z - success: google-instant-games loaded
+2022-05-17T09:11:54.981Z - success: hierarchy loaded
+2022-05-17T09:11:54.984Z - success: inspector loaded
+2022-05-17T09:11:54.985Z - success: keystore loaded
+2022-05-17T09:11:54.989Z - success: node-library loaded
+2022-05-17T09:11:54.990Z - success: package-asset loaded
+2022-05-17T09:11:54.991Z - success: preferences loaded
+2022-05-17T09:11:54.993Z - success: project-exporter loaded
+2022-05-17T09:11:54.997Z - success: project-importer loaded
+2022-05-17T09:11:55.000Z - success: project-settings loaded
+2022-05-17T09:11:55.004Z - success: scene loaded
+2022-05-17T09:11:55.006Z - success: simulator-debugger loaded
+2022-05-17T09:11:55.007Z - success: sprite-editor loaded
+2022-05-17T09:11:55.011Z - success: store loaded
+2022-05-17T09:11:55.016Z - success: timeline loaded
+2022-05-17T09:11:55.019Z - success: xiaomi-runtime loaded
+2022-05-17T09:11:55.793Z - normal: Loading packages
+2022-05-17T09:11:55.796Z - normal: Watching packages
+2022-05-17T09:11:55.868Z - normal: Run Application
+2022-05-17T09:12:02.987Z - info: Cocos Services load base data!
