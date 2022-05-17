@@ -7,7 +7,10 @@ cc.Class({
     properties: {
         _width: 4,
         _isMoveRight: false,
-
+        _canMoveLeft: true,
+        _canMoveRight: true,
+        _canMoveUp: true,
+        _canMoveDown: true,
     },
 
     onLoad() {
@@ -128,11 +131,7 @@ cc.Class({
     combineRowLeft(listBlock, arrayBlock) {
         for (let index = 0; index <= 15; index++) {
             if (arrayBlock[index] === arrayBlock[index + 1]) {
-
-                if ((index + 1) % 4 == 0) {
-                    cc.log(true)
-                }
-                else {
+                if ((index + 1) % 4 != 0) {
                     let combinedTotal = arrayBlock[index] + arrayBlock[index + 1]
                     listBlock[index].getComponent("block").labelPrefab.string = combinedTotal
                     listBlock[index + 1].getComponent("block").labelPrefab.string = 0
@@ -144,7 +143,7 @@ cc.Class({
         }
     },
     combineRowRight(listBlock, arrayBlock) {
-        for (let index = 0; index <= 15; index++) {
+        for (let index = 15; index >= 0; index--) {
             if (arrayBlock[index] === arrayBlock[index + 1]) {
 
                 if ((index + 1) % 4 == 0) {
@@ -175,14 +174,14 @@ cc.Class({
     },
 
     combineColumnDown(listBlock, arrayBlock) {
-        for (let index = 0; index <= 15; index++) {
+        for (let index = 15; index >= 0; index--) {
             if (arrayBlock[index] == arrayBlock[index + this._width]) {
                 let combinedTotal = arrayBlock[index] + arrayBlock[index + this._width]
-                listBlock[index + this._width].getComponent("block").labelPrefab.string = combinedTotal
-                listBlock[index].getComponent("block").labelPrefab.string = 0
+                listBlock[index].getComponent("block").labelPrefab.string = combinedTotal
+                listBlock[index + this._width].getComponent("block").labelPrefab.string = 0
 
-                arrayBlock[index + this._width] = combinedTotal
-                arrayBlock[index] = 0
+                arrayBlock[index] = combinedTotal
+                arrayBlock[index + this._width] = 0
             }
         }
     },
@@ -191,27 +190,48 @@ cc.Class({
         this.moveRight(listBlock, arrayBlock)
         this.combineRowRight(listBlock, arrayBlock)
         this.moveRight(listBlock, arrayBlock)
-        Emitter.instance.emit(emitName.generate)
-
+        if(arrayBlock.includes(0)){
+            Emitter.instance.emit(emitName.generate)
+        }
+        else{
+            cc.log("full")
+        }
+        // cc.log(arrayBlock)
     },
     moveLeftCombined(listBlock, arrayBlock) {
         this.moveLeft(listBlock, arrayBlock)
         this.combineRowLeft(listBlock, arrayBlock)
         this.moveLeft(listBlock, arrayBlock)
-        Emitter.instance.emit(emitName.generate)
-    },
+        if(arrayBlock.includes(0)){
+            Emitter.instance.emit(emitName.generate)
+
+        }
+        else{
+            cc.log("full")
+        }    },
     moveUpCombined(listBlock, arrayBlock) {
         this.moveUp(listBlock, arrayBlock)
         this.combineColumnUp(listBlock, arrayBlock)
         this.moveUp(listBlock, arrayBlock)
-        Emitter.instance.emit(emitName.generate)
+        if(arrayBlock.includes(0)){
+            Emitter.instance.emit(emitName.generate)
 
+        }
+        else{
+            cc.log("full")
+        }
     },
     moveDownCombined(listBlock, arrayBlock) {
         this.moveDown(listBlock, arrayBlock)
         this.combineColumnDown(listBlock, arrayBlock)
         this.moveDown(listBlock, arrayBlock)
-        Emitter.instance.emit(emitName.generate)
+        if(arrayBlock.includes(0)){
+            Emitter.instance.emit(emitName.generate)
+
+        }
+        else{
+            cc.log("full")
+        }
     }
 
     // update (dt) {},

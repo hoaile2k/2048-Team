@@ -138,19 +138,15 @@ cc.Class({
     },
     moveUp :function() {
         Emitter.instance.emit(emitName.moveUp, this._listBlock, this._arrayBlock,this.generate)
-        // this.generate()
     },
     moveDown :function() {
         Emitter.instance.emit(emitName.moveDown, this._listBlock, this._arrayBlock,this.generate)
-        // this.generate()
     },
     moveLeft :function() {
         Emitter.instance.emit(emitName.moveLeft, this._listBlock, this._arrayBlock,this.generate)
-        // this.generate()
     },
     moveRight :function() {
         Emitter.instance.emit(emitName.moveRight, this._listBlock, this._arrayBlock,this.generate)
-        // this.generate()
     },
 
     update(dt) {
