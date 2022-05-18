@@ -1,0 +1,74 @@
+2022-05-18T02:09:30.806Z - normal: Load ~/.CocosCreator/settings.json
+2022-05-18T02:09:30.846Z - normal: Initializing Asset Database
+2022-05-18T02:09:30.848Z - normal: checking language setting...
+2022-05-18T02:09:30.848Z - normal: Language: en
+2022-05-18T02:09:31.281Z - success: preview server running at http://localhost:7456
+2022-05-18T02:09:31.295Z - success: protocol editor-framework registered
+2022-05-18T02:09:31.295Z - success: protocol app registered
+2022-05-18T02:09:31.295Z - success: protocol theme registered
+2022-05-18T02:09:31.296Z - success: protocol packages registered
+2022-05-18T02:09:31.296Z - success: protocol uuid registerred
+2022-05-18T02:09:31.296Z - success: protocol db registerred
+2022-05-18T02:09:31.296Z - success: protocol thumbnail registerred
+2022-05-18T02:09:31.296Z - success: protocol unpack registerred
+2022-05-18T02:09:31.296Z - success: protocol disable-commonjs registerred
+2022-05-18T02:09:33.354Z - normal: connected!
+2022-05-18T02:09:33.356Z - normal: Check project /Users/gemi/Documents/GitHub/2048-Team/cc-2048-V2
+2022-05-18T02:09:33.358Z - normal: Initializing project /Users/gemi/Documents/GitHub/2048-Team/cc-2048-V2
+2022-05-18T02:09:33.592Z - normal: Initializing Cocos2d
+2022-05-18T02:09:33.990Z - normal: Initializing engine extends
+2022-05-18T02:09:34.004Z - success: alipay-adapter loaded
+2022-05-18T02:09:34.010Z - success: asset-db-debugger loaded
+2022-05-18T02:09:34.014Z - success: baidu-adapter loaded
+2022-05-18T02:09:34.017Z - success: color-picker loaded
+2022-05-18T02:09:34.098Z - success: fb-audience-network loaded
+2022-05-18T02:09:34.146Z - success: fb-live-stream loaded
+2022-05-18T02:09:34.148Z - success: google-play-instant loaded
+2022-05-18T02:09:34.152Z - success: huawei-runtime loaded
+2022-05-18T02:09:34.282Z - success: cpk-publish loaded
+2022-05-18T02:09:34.283Z - success: jsb-adapter loaded
+2022-05-18T02:09:34.286Z - success: oppo-runtime loaded
+2022-05-18T02:09:34.289Z - success: package-manager loaded
+2022-05-18T02:09:34.358Z - success: qqplay-adapter loaded
+2022-05-18T02:09:34.359Z - success: runtime-dev-tools loaded
+2022-05-18T02:09:34.363Z - success: sdkbox loaded
+2022-05-18T02:09:34.366Z - success: tester loaded
+2022-05-18T02:09:34.368Z - success: ui-kit-preview-extra loaded
+2022-05-18T02:09:34.370Z - success: ui-kit-preview loaded
+2022-05-18T02:09:34.372Z - success: ui-kit loaded
+2022-05-18T02:09:34.375Z - success: vivo-runtime loaded
+2022-05-18T02:09:34.376Z - success: weapp-adapter loaded
+2022-05-18T02:09:34.376Z - success: xiaomi-adapter loaded
+2022-05-18T02:09:34.378Z - success: alipay-minigame loaded
+2022-05-18T02:09:34.406Z - success: assets loaded
+2022-05-18T02:09:34.409Z - success: builder loaded
+2022-05-18T02:09:34.564Z - success: cocos-services loaded
+2022-05-18T02:09:34.568Z - success: console loaded
+2022-05-18T02:09:34.591Z - success: fb-instant-games loaded
+2022-05-18T02:09:34.594Z - success: game-window loaded
+2022-05-18T02:09:34.595Z - success: google-instant-games loaded
+2022-05-18T02:09:34.598Z - success: hierarchy loaded
+2022-05-18T02:09:34.600Z - success: inspector loaded
+2022-05-18T02:09:34.602Z - success: keystore loaded
+2022-05-18T02:09:34.605Z - success: node-library loaded
+2022-05-18T02:09:34.606Z - success: package-asset loaded
+2022-05-18T02:09:34.607Z - success: preferences loaded
+2022-05-18T02:09:34.609Z - success: project-exporter loaded
+2022-05-18T02:09:34.612Z - success: project-importer loaded
+2022-05-18T02:09:34.615Z - success: project-settings loaded
+2022-05-18T02:09:34.618Z - success: scene loaded
+2022-05-18T02:09:34.619Z - success: simulator-debugger loaded
+2022-05-18T02:09:34.620Z - success: sprite-editor loaded
+2022-05-18T02:09:34.623Z - success: store loaded
+2022-05-18T02:09:34.629Z - success: timeline loaded
+2022-05-18T02:09:34.631Z - success: xiaomi-runtime loaded
+2022-05-18T02:09:35.320Z - normal: Loading packages
+2022-05-18T02:09:35.323Z - normal: Watching packages
+2022-05-18T02:09:35.394Z - normal: Run Application
+2022-05-18T02:09:43.062Z - info: Cocos Services load base data!
+2022-05-18T02:10:09.307Z - warn: timeout
+2022-05-18T04:44:00.355Z - warn: [db-task][sync-changes] uuid collision, the uuid(29e0ccb4-7743-4e82-9803-5470a53fbca3) for /Users/gemi/Documents/GitHub/2048-Team/cc-2048-V2/assets/Images/2048-Images is already used. A new uuid(c9c83d2d-bd1e-4116-acfc-aea9262af375) will be assigned.
+2022-05-18T04:44:00.357Z - failed: [db-task][sync-changes] path collision, the path for c9c83d2d-bd1e-4116-acfc-aea9262af375 is already in used by 29e0ccb4-7743-4e82-9803-5470a53fbca3. This resource is about to be ignored.
+2022-05-18T04:44:00.357Z - warn: [db-task][sync-changes] uuid collision, the uuid(2f88588b-741a-45fa-b45d-4d82591326d3) for /Users/gemi/Documents/GitHub/2048-Team/cc-2048-V2/assets/Images/2048-Images/Button is already used. A new uuid(7cea24ee-efc2-4b22-b53b-3c4ce5b709d6) will be assigned.
+2022-05-18T04:44:00.358Z - failed: [db-task][sync-changes] path collision, the path for 7cea24ee-efc2-4b22-b53b-3c4ce5b709d6 is already in used by 2f88588b-741a-45fa-b45d-4d82591326d3. This resource is about to be ignored.
+2022-05-18T04:44:00.359Z - failed: [db-task][sync-changes] path collision, the path for 7cea24ee-efc2-4b22-b53b-3c4ce5b709d6 is already in used by 2f88588b-741a-45fa-b45d-4d82591326d3. This resource is about to be ignored.
