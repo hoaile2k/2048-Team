@@ -1,0 +1,34 @@
+{
+  "ver": "2.3.3",
+  "uuid": "3bc72e04-aad5-427e-a412-efd32a4013ff",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "platformSettings": {},
+  "subMetas": {
+    "wooden-board-ui-interface-for-the-game-vector-removebg-preview": {
+      "ver": "1.0.4",
+      "uuid": "4ac6dbc0-cbc2-49a9-9b3b-86a435078495",
+      "rawTextureUuid": "3bc72e04-aad5-427e-a412-efd32a4013ff",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 2.5,
+      "offsetY": 0.5,
+      "trimX": 13,
+      "trimY": 6,
+      "width": 280,
+      "height": 187,
+      "rawWidth": 301,
+      "rawHeight": 200,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}
