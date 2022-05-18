@@ -55,7 +55,7 @@ cc.Class({
                 cell.y = listBlock[index + (this._width * 3)].y
                 cell.getChildByName("label").getComponent("cc.Label").string = arrayBlock[index + (this._width * 3)]
                 cell.color = cc.color(Color[arrayBlock[index + (this._width * 3)]])
-                if(arrayBlock[index] == 0) {
+                if (arrayBlock[index] == 0) {
                     let callFunc = cc.callFunc(() => {
                         cell.destroy()
                     })
@@ -68,6 +68,10 @@ cc.Class({
                     })
                     let moveTo = cc.moveTo(timeAction, cc.v2(cell.x, positionY[1]))
                     cell.runAction(cc.sequence(moveTo, callFunc))
+                }
+                else{
+                    cell.destroy()
+
                 }
 
             }
@@ -92,6 +96,10 @@ cc.Class({
                     })
                     let moveTo = cc.moveTo(timeAction, cc.v2(cell.x, positionY[1]))
                     cell.runAction(cc.sequence(moveTo, callFunc))
+                }
+                else{
+                    cell.destroy()
+
                 }
 
             }
@@ -127,7 +135,7 @@ cc.Class({
                 cell.y = listBlock[index].y
                 cell.getChildByName("label").getComponent("cc.Label").string = arrayBlock[index]
                 cell.color = cc.color(Color[arrayBlock[index]])
-                if(arrayBlock[index + (this._width * 3)] == 0) {
+                if (arrayBlock[index + (this._width * 3)] == 0) {
                     let callFunc = cc.callFunc(() => {
                         cell.destroy()
                     })
@@ -140,6 +148,10 @@ cc.Class({
                     })
                     let moveTo = cc.moveTo(timeAction, cc.v2(cell.x, positionY[2]))
                     cell.runAction(cc.sequence(moveTo, callFunc))
+                }
+                else{
+                    cell.destroy()
+
                 }
 
             }
@@ -164,6 +176,10 @@ cc.Class({
                     })
                     let moveTo = cc.moveTo(timeAction, cc.v2(cell.x, positionY[2]))
                     cell.runAction(cc.sequence(moveTo, callFunc))
+                }
+                else {
+                    cell.destroy()
+
                 }
 
             }
