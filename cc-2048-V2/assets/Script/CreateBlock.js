@@ -38,11 +38,12 @@ cc.Class({
     start() {
         for (let index = 0; index <= 15; index++) {
             let block = cc.instantiate(this.blockPrefab)
-            block.getComponent("block").labelPrefab.string = 0
+            block.getComponent("block").labelPrefab.string = ""
             block.parent = this.node
             this._arrayBlock.push(block.getComponent("block").labelPrefab.string)
             this._listBlock.push(block)
         }
+        cc.log(this._listBlock)
         this.generate()
         this.generate()
     },

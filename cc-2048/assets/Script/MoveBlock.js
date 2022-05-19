@@ -10,9 +10,10 @@ cc.Class({
         _width: 4,
         _isMoveRight: false,
         _canMove: true,
+        _isWin: false,
         getCell: cc.Prefab,
         getParentNode: cc.Component,
-
+        getScore: cc.Label,
     },
 
     onLoad() {
@@ -27,7 +28,10 @@ cc.Class({
         Emitter.instance.registerEvent(emitName.moveRight, this.evtMoveRight)
     },
     start() {
-
+        this.canMoveRight = true
+        this.canMoveLeft = true
+        this.canMoveUp = true
+        this.canMoveDown = true
     },
 
     moveUp(listBlock, arrayBlock, timeAction = 0.15) {
@@ -69,7 +73,7 @@ cc.Class({
                     let moveTo = cc.moveTo(timeAction, cc.v2(cell.x, positionY[1]))
                     cell.runAction(cc.sequence(moveTo, callFunc))
                 }
-                else{
+                else {
                     cell.destroy()
 
                 }
@@ -97,7 +101,7 @@ cc.Class({
                     let moveTo = cc.moveTo(timeAction, cc.v2(cell.x, positionY[1]))
                     cell.runAction(cc.sequence(moveTo, callFunc))
                 }
-                else{
+                else {
                     cell.destroy()
 
                 }
@@ -149,7 +153,7 @@ cc.Class({
                     let moveTo = cc.moveTo(timeAction, cc.v2(cell.x, positionY[2]))
                     cell.runAction(cc.sequence(moveTo, callFunc))
                 }
-                else{
+                else {
                     cell.destroy()
 
                 }
@@ -212,22 +216,13 @@ cc.Class({
                     cell.parent = this.getParentNode.node
                     cell.x = listBlock[index + 3].x
                     cell.y = listBlock[index + 3].y
-                    let labelCell = cell.getChildByName("label").getComponent("cc.Label")
-                    labelCell.string = arrayBlock[index + 3]
+                    cell.getChildByName("label").getComponent("cc.Label").string = arrayBlock[index + 3]
                     cell.color = cc.color(Color[arrayBlock[index + 3]])
-                    if (newRow[3] == 0) {
+                    if (newRow[0] == 0) {
                         let callFunc = cc.callFunc(() => {
                             cell.destroy()
-
                         })
                         let moveTo = cc.moveTo(timeAction, cc.v2(positionX[0], cell.y))
-                        cell.runAction(cc.sequence(moveTo, callFunc))
-                    }
-                    else if (newRow[2] == 0) {
-                        let callFunc = cc.callFunc(() => {
-                            cell.destroy()
-                        })
-                        let moveTo = cc.moveTo(timeAction, cc.v2(positionX[1], cell.y))
                         cell.runAction(cc.sequence(moveTo, callFunc))
                     }
                     else if (newRow[1] == 0) {
@@ -235,68 +230,39 @@ cc.Class({
                             cell.destroy()
 
                         })
-                        let moveTo = cc.moveTo(timeAction, cc.v2(positionX[2], cell.y))
+                        let moveTo = cc.moveTo(timeAction, cc.v2(positionX[1], cell.y))
                         cell.runAction(cc.sequence(moveTo, callFunc))
                     }
                     else {
                         cell.destroy()
-                        this.scheduleOnce(function () {
-
-                        }, timeAction);
                     }
+
                 }
 
                 if (arrayBlock[index + 2] != 0) {
                     let cell = cc.instantiate(this.getCell)
                     cell.parent = this.getParentNode.node
-                    cell.x = listBlock[index + 1].x
-                    cell.y = listBlock[index + 1].y
+                    cell.x = listBlock[index + 2].x
+                    cell.y = listBlock[index + 2].y
+
                     cell.getChildByName("label").getComponent("cc.Label").string = arrayBlock[index + 2]
                     cell.color = cc.color(Color[arrayBlock[index + 2]])
-                    if (newRow[2] == 0) {
+                    if (newRow[0] == 0) {
                         let callFunc = cc.callFunc(() => {
                             cell.destroy()
                         })
                         let moveTo = cc.moveTo(timeAction, cc.v2(positionX[0], cell.y))
                         cell.runAction(cc.sequence(moveTo, callFunc))
                     }
-                    else if (newRow[2] == 0) {
+                    else if (newRow[1] == 0) {
                         let callFunc = cc.callFunc(() => {
                             cell.destroy()
-
-
                         })
                         let moveTo = cc.moveTo(timeAction, cc.v2(positionX[1], cell.y))
                         cell.runAction(cc.sequence(moveTo, callFunc))
                     }
                     else {
                         cell.destroy()
-                        this.scheduleOnce(function () {
-
-                        }, timeAction);
-                    }
-                }
-                if (arrayBlock[index + 1] != 0) {
-                    let cell = cc.instantiate(this.getCell)
-                    cell.parent = this.getParentNode.node
-                    cell.x = listBlock[index + 1].x
-                    cell.y = listBlock[index + 1].y
-
-                    cell.getChildByName("label").getComponent("cc.Label").string = arrayBlock[index + 1]
-                    cell.color = cc.color(Color[arrayBlock[index]])
-                    if (newRow[1] == 0) {
-                        let callFunc = cc.callFunc(() => {
-                            cell.destroy()
-                        })
-                        let moveTo = cc.moveTo(timeAction, cc.v2(positionX[0], cell.y))
-                        cell.runAction(cc.sequence(moveTo, callFunc))
-                    }
-                    else {
-                        cell.destroy()
-
-                        this.scheduleOnce(function () {
-                            //  
-                        }, timeAction);
                     }
                 }
                 arrayBlock[index] = newRow[0]
@@ -307,7 +273,6 @@ cc.Class({
         }
     },
     moveRight(listBlock, arrayBlock, timeAction = 0.15) {
-        this._isMoveRight = true
         for (let index = 0; index < 16; index++) {
             if (index % 4 === 0) {
                 let totalOne = arrayBlock[index]
@@ -334,20 +299,11 @@ cc.Class({
                     if (newRow[3] == 0) {
                         let callFunc = cc.callFunc(() => {
                             cell.destroy()
-
-                        })
-                        let moveTo = cc.moveTo(timeAction, cc.v2(positionX[4], cell.y))
-                        cell.runAction(cc.sequence(moveTo, callFunc))
-                    }
-                    else if (newRow[2] == 0) {
-                        let callFunc = cc.callFunc(() => {
-                            cell.destroy()
-
                         })
                         let moveTo = cc.moveTo(timeAction, cc.v2(positionX[3], cell.y))
                         cell.runAction(cc.sequence(moveTo, callFunc))
                     }
-                    else if (newRow[1] == 0) {
+                    else if (newRow[2] == 0) {
                         let callFunc = cc.callFunc(() => {
                             cell.destroy()
 
@@ -357,9 +313,6 @@ cc.Class({
                     }
                     else {
                         cell.destroy()
-                        this.scheduleOnce(function () {
-
-                        }, timeAction);
                     }
 
                 }
@@ -376,43 +329,20 @@ cc.Class({
                         let callFunc = cc.callFunc(() => {
                             cell.destroy()
                         })
-                        let moveTo = cc.moveTo(timeAction, cc.v2(positionX[4], cell.y))
+                        let moveTo = cc.moveTo(timeAction, cc.v2(positionX[3], cell.y))
                         cell.runAction(cc.sequence(moveTo, callFunc))
                     }
                     else if (newRow[2] == 0) {
                         let callFunc = cc.callFunc(() => {
                             cell.destroy()
                         })
-                        let moveTo = cc.moveTo(timeAction, cc.v2(positionX[3], cell.y))
+                        let moveTo = cc.moveTo(timeAction, cc.v2(positionX[2], cell.y))
                         cell.runAction(cc.sequence(moveTo, callFunc))
                     }
                     else {
                         cell.destroy()
                         this.scheduleOnce(function () {
 
-                        }, timeAction);
-                    }
-                }
-                if (arrayBlock[index + 2] != 0) {
-                    let cell = cc.instantiate(this.getCell)
-                    cell.parent = this.getParentNode.node
-                    cell.x = listBlock[index + 2].x
-                    cell.y = listBlock[index + 2].y
-
-                    cell.getChildByName("label").getComponent("cc.Label").string = arrayBlock[index + 2]
-                    cell.color = cc.color(Color[arrayBlock[index + 2]])
-                    if (newRow[3] == 0) {
-                        let callFunc = cc.callFunc(() => {
-                            cell.destroy()
-                        })
-                        let moveTo = cc.moveTo(timeAction, cc.v2(positionX[4], cell.y))
-                        cell.runAction(cc.sequence(moveTo, callFunc))
-                    }
-                    else {
-                        cell.destroy()
-
-                        this.scheduleOnce(function () {
-                            //  
                         }, timeAction);
                     }
                 }
@@ -433,6 +363,9 @@ cc.Class({
                     listBlock[index + 1].getComponent("block").labelPrefab.string = 0
                     arrayBlock[index] = combinedTotal
                     arrayBlock[index + 1] = 0
+                    let score = parseInt(this.getScore.string)
+                    this.getScore.string = score + combinedTotal
+                    this.isWinning(combinedTotal)
                 }
             }
 
@@ -451,6 +384,10 @@ cc.Class({
                     listBlock[index].getComponent("block").labelPrefab.string = 0
                     arrayBlock[index + 1] = combinedTotal
                     arrayBlock[index] = 0
+                    let score = parseInt(this.getScore.string)
+                    this.getScore.string = score + combinedTotal
+                    this.isWinning(combinedTotal)
+
                 }
             }
 
@@ -465,23 +402,27 @@ cc.Class({
 
                 arrayBlock[index] = combinedTotal
                 arrayBlock[index + this._width] = 0
+                let score = parseInt(this.getScore.string)
+                this.getScore.string = score + combinedTotal
+                this.isWinning(combinedTotal)
+
             }
         }
     },
-
     combineColumnDown(listBlock, arrayBlock) {
         for (let index = 15; index >= 0; index--) {
             if (arrayBlock[index] == arrayBlock[index + this._width]) {
                 let combinedTotal = arrayBlock[index] + arrayBlock[index + this._width]
                 listBlock[index].getComponent("block").labelPrefab.string = combinedTotal
                 listBlock[index + this._width].getComponent("block").labelPrefab.string = 0
-
                 arrayBlock[index] = combinedTotal
                 arrayBlock[index + this._width] = 0
+                let score = parseInt(this.getScore.string)
+                this.getScore.string = score + combinedTotal
+                this.isWinning(combinedTotal)
             }
         }
     },
-
     moveRightCombined(listBlock, arrayBlock) {
         if (this._canMove == true) {
 
@@ -492,7 +433,7 @@ cc.Class({
                 Emitter.instance.emit(emitName.generate)
             }
             else {
-                cc.log("full")
+                this.isFull(arrayBlock)
             }
         }
 
@@ -508,7 +449,7 @@ cc.Class({
 
             }
             else {
-                cc.log("full")
+                this.isFull(arrayBlock)
             }
         }
     },
@@ -520,7 +461,7 @@ cc.Class({
             Emitter.instance.emit(emitName.generate)
         }
         else {
-            cc.log("full")
+            this.isFull(arrayBlock)
         }
     },
     moveDownCombined(listBlock, arrayBlock) {
@@ -532,15 +473,42 @@ cc.Class({
 
         }
         else {
-            cc.log("full")
+            this.isFull(arrayBlock)
+        }
+    },
+    isFull(arrayBlock) {
+        let canMoveVertical = true
+        let canMoveHorizontal = true
+        for (let index = 0; index < 16; index++) {
+            let arr1 = arrayBlock[index]
+            let arr2 = arrayBlock[index + this._width]
+            let arr3 = arrayBlock[index + (this._width * 2)]
+            let arr4 = arrayBlock[index + (this._width * 3)]
+            //Vertical
+            if (arr1 != arr2 && arr2 != arr3 && arr3 != arr4) {
+                canMoveVertical = false
+            }
+            //Horizontal
+            if (index % 4 === 0) {
+                if (arrayBlock[index] != arrayBlock[index + 1]) {
+                    canMoveHorizontal = false
+                }
+            }
+        }
+        if (canMoveHorizontal && canMoveVertical) {
+            canMoveHorizontal = true
+            canMoveVertical = false
+        }
+        else {
+            cc.log("you lose")
+        }
+    },
+    isWinning(total) {
+        if (total == 8) {
+            cc.log("you win")
         }
     }
 
+
     // update (dt) {},
 });
-/** 
-  Bugs:
-   => move down và move right chưa hoàn thiện (check lại điều kiện)
-   => tất cả các cột hết đườngg đi qua tay phải rồi vẫn hiện số
-
-**/

@@ -30,10 +30,21 @@ cc.Class({
         this.loading.getChildByName("BG").getChildByName("ProgressBar").runAction(
             cc.repeat(
                 cc.sequence(cc.delayTime(0.2),
-                cc.callFunc(()=>{this.loading.getChildByName("BG").getChildByName("ProgressBar").getComponent(cc.ProgressBar).progress+=0.1})
+                cc.callFunc(()=>{
+                    this.loading.getChildByName("BG").getChildByName("ProgressBar").getComponent(cc.ProgressBar).progress+=0.1
+                    if(this.loading.getChildByName("BG").getChildByName("ProgressBar").getComponent(cc.ProgressBar).progress >= 0.99){
+                        cc.director.loadScene("2048");
+
+                    }
+                })
+                
                 ),10
             )
+           
         );
+        if(this.loading.progress == 1){
+            cc.log('GO')
+        }
     },
     onCloud(){
         this.loading.getChildByName("cloud1").runAction(cc.moveBy(1,400,0));
