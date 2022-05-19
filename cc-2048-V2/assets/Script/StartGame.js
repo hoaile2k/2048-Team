@@ -9,12 +9,16 @@ cc.Class({
         loading: cc.Node,
         boardGame: cc.Node,
         username: cc.Label,
+        nameEditBox: cc.EditBox,
+        alertMessage: cc.Node,
         _flag: false,
     },
 
     // LIFE-CYCLE CALLBACKS:
 
-    // onLoad () {},
+    onLoad () {
+        if(cc.sys.localStorage.getItem('debug')) cc.sys.localStorage.removeItem('debug');
+    },
     openUserBoard(){
         this.userBoard.active = true;
         this.node.active = false;
@@ -24,23 +28,41 @@ cc.Class({
         let newUser = new user();
         newUser.name = this.username.string;
         newUser.score = 0;
-        cc.sys.localStorage.setItem("userId"+cc.sys.localStorage.length-1, JSON.stringify(newUser));
+        cc.sys.localStorage.setItem(`userId${cc.sys.localStorage.length}`, JSON.stringify(newUser));
+    },
+    validateEditBox(){
+        if(!this.nameEditBox.string) {
+            this.alertMessageBox("Please enter your name!");
+            return false;
+        }else{
+            this._flag = false;
+            return true;
+        } 
+    },
+    alertMessageBox(value){
+        this.alertMessage.getChildByName("alertRichText").getComponent(cc.RichText).string = `<color=B4ECE3>Alert  </c><color=FFF8D5>${value}</color>`;
+        this.alertMessage.runAction(cc.sequence(cc.moveBy(1,0,-160),cc.delayTime(1.5),cc.moveBy(1,0,160),cc.callFunc(()=>{this._flag = false})));
     },
     loadingGame(){
-        this.createUser();
-        let arrUser = cc.sys.localStorage;
-        cc.log(arrUser);
         if(!this._flag){
             this._flag = true;
-            this.loading.active = true;
-            this.loading.runAction(cc.sequence(cc.callFunc(this.onCloud,this),cc.delayTime(2),cc.callFunc(this.offCloud,this)));
-            this.loading.runAction(cc.sequence(
-                cc.delayTime(1),
-                cc.callFunc(()=>{this.loading.getChildByName("BG").active = true}),
-                cc.delayTime(2),
-                cc.callFunc(this.loadProgressBar,this)
-                )
-            );
+            if(!this.validateEditBox()){
+                return;
+            }else if(this.validateEditBox()){
+                this.createUser();
+                if(!this._flag){
+                    this._flag = true;
+                    this.loading.active = true;
+                    this.loading.runAction(cc.sequence(cc.callFunc(this.onCloud,this),cc.delayTime(2),cc.callFunc(this.offCloud,this)));
+                    this.loading.runAction(cc.sequence(
+                        cc.delayTime(1),
+                        cc.callFunc(()=>{this.loading.getChildByName("BG").active = true}),
+                        cc.delayTime(2),
+                        cc.callFunc(this.loadProgressBar,this)
+                        )
+                    );
+                }
+            }
         }
     },
     loadProgressBar(){

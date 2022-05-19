@@ -7,6 +7,8 @@ cc.Class({
         username: cc.Label,
         leadBoard: cc.Node,
         boardGame:cc.Node,
+        userList: cc.Prefab,
+        content: cc.Node,
         _offBoard: null,
         _flag: false,
     },
@@ -19,6 +21,22 @@ cc.Class({
     textChange(value){
         cc.log(value);
         this.username.string = value;
+    },
+    addLeadBoard(){
+        if(!cc.sys.localStorage.length){
+            return;
+        }else if(cc.sys.localStorage.length){
+            // this.content.removeAllChildren();
+            for(let i=0;i<cc.sys.localStorage.length;i++){
+                cc.log(cc.sys.localStorage.getItem(`userId${i}`));
+                // let item = cc.instantiate(this.userList);
+                // item.parent = this.content;
+                // item.y = -30-(i*60);
+                // item.getChildByName("username").getComponent(cc.Label).string = cc.sys.localStorage.getItem(i).name;
+                // item.getChildByName("score").getComponent(cc.Label).string = cc.sys.localStorage.getItem(i).score;
+                // this.content.height += 10;
+            }
+        }
     },
     loadLeadBoard(){
         if(!this._flag){
@@ -33,8 +51,10 @@ cc.Class({
         }
     },
     start () {
-
+        this.addLeadBoard();
     },
 
-    // update (dt) {},
+    update (dt) {
+        
+    },
 });
