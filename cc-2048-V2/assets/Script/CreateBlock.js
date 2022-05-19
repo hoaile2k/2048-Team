@@ -103,67 +103,52 @@ cc.Class({
         }
     },
     onKeyUp(event) {
-        if (this._canMove == true) {
-            this._canMove = false
-            switch (event.keyCode) {
-                case cc.macro.KEY.up:
-                    this.moveUp()
-                    break;
+        switch (event.keyCode) {
+            case cc.macro.KEY.up:
+                this.moveUp()
+                break;
 
-                case cc.macro.KEY.down:
-                    this.moveDown()
-                    break;
+            case cc.macro.KEY.down:
+                this.moveDown()
+                break;
 
-                case cc.macro.KEY.left:
-                    this.moveLeft()
-                    break;
+            case cc.macro.KEY.left:
+                this.moveLeft()
+                break;
 
-                case cc.macro.KEY.right:
-                    this.moveRight()
-                    break;
+            case cc.macro.KEY.right:
+                this.moveRight()
+                break;
 
-                case cc.macro.KEY.w:
-                    this.moveUp()
-                    break;
+            case cc.macro.KEY.w:
+                this.moveUp()
+                break;
 
-                case cc.macro.KEY.s:
-                    this.moveDown()
-                    break;
+            case cc.macro.KEY.s:
+                this.moveDown()
+                break;
 
-                case cc.macro.KEY.a:
-                    this.moveLeft()
-                    break;
+            case cc.macro.KEY.a:
+                this.moveLeft()
+                break;
 
-                case cc.macro.KEY.d:
-                    this.moveRight()
-                    break;
-
-            }
+            case cc.macro.KEY.d:
+                this.moveRight()
+                break;
 
         }
+
     },
     moveUp: function () {
-        this.scheduleOnce(()=>{
-            this._canMove = true
-        },0.5)
         Emitter.instance.emit(emitName.moveUp, this._listBlock, this._arrayBlock, this.generate)
     },
     moveDown: function () {
-        this.scheduleOnce(()=>{
-            this._canMove = true
-        },0.5)
         Emitter.instance.emit(emitName.moveDown, this._listBlock, this._arrayBlock, this.generate)
     },
     moveLeft: function () {
-        this.scheduleOnce(()=>{
-            this._canMove = true
-        },0.5)
         Emitter.instance.emit(emitName.moveLeft, this._listBlock, this._arrayBlock, this.generate)
     },
     moveRight: function () {
-        this.scheduleOnce(()=>{
-            this._canMove = true
-        },0.5)
         Emitter.instance.emit(emitName.moveRight, this._listBlock, this._arrayBlock, this.generate)
     },
 
