@@ -1,6 +1,7 @@
 const Emitter = require("mEmitter")
 const emitName = require("emitName")
 const Color = require("color")
+const { thru } = require("lodash")
 let positionX = [80, 240, 400, 560]
 let positionY = [560, 400, 240, 80]
 cc.Class({
@@ -52,14 +53,14 @@ cc.Class({
             listBlock[index + (this._width * 2)].getComponent("block").labelPrefab.string = newColumn[2]
             listBlock[index + (this._width * 3)].getComponent("block").labelPrefab.string = newColumn[3]
 
-            if (arrayBlock[index + (this._width * 3)] != 0) {
+            if (arrayBlock[index] == 0 && arrayBlock[index + (this._width * 3)] != 0) {
                 let cell = cc.instantiate(this.getCell)
                 cell.parent = this.getParentNode.node
                 cell.x = listBlock[index + (this._width * 3)].x
                 cell.y = listBlock[index + (this._width * 3)].y
                 cell.getChildByName("label").getComponent("cc.Label").string = arrayBlock[index + (this._width * 3)]
                 cell.color = cc.color(Color[arrayBlock[index + (this._width * 3)]])
-                if (arrayBlock[index] == 0) {
+                if (arrayBlock[index + this._width] == 0 && arrayBlock[index + (this._width * 2)] == 0) {
                     let callFunc = cc.callFunc(() => {
                         cell.destroy()
                     })
@@ -68,21 +69,36 @@ cc.Class({
                     cc.tween(listBlock[index])
                         .to(0, { opacity: 0 })
                         .delay(0.2)
-                        .to(0, { opacity: 255 })
+                        .to(0.1, { opacity: 255 })
                         .by(0.1, { scale: 0.1 })
                         .by(0.1, { scale: -0.1 })
                         .start()
                 }
-                else if (arrayBlock[index + this._width] == 0) {
+                else if (arrayBlock[index] == 0 && arrayBlock[index + this._width] == 0) {
+                    cc.log("đây")
                     let callFunc = cc.callFunc(() => {
                         cell.destroy()
                     })
                     let moveTo = cc.moveTo(timeAction, cc.v2(cell.x, positionY[1]))
                     cell.runAction(cc.sequence(moveTo, callFunc))
-                    cc.tween(listBlock[index])
+                    cc.tween(listBlock[index + this._width])
                         .to(0, { opacity: 0 })
                         .delay(0.2)
-                        .to(0, { opacity: 255 })
+                        .to(0.1, { opacity: 255 })
+                        .by(0.1, { scale: 0.1 })
+                        .by(0.1, { scale: -0.1 })
+                        .start()
+                }
+                else if (arrayBlock[index] == 0) {
+                    let callFunc = cc.callFunc(() => {
+                        cell.destroy()
+                    })
+                    let moveTo = cc.moveTo(timeAction, cc.v2(cell.x, positionY[2]))
+                    cell.runAction(cc.sequence(moveTo, callFunc))
+                    cc.tween(listBlock[index + this._width])
+                        .to(0, { opacity: 0 })
+                        .delay(0.2)
+                        .to(0.1, { opacity: 255 })
                         .by(0.1, { scale: 0.1 })
                         .by(0.1, { scale: -0.1 })
                         .start()
@@ -92,45 +108,41 @@ cc.Class({
 
                 }
 
-
             }
-
-            if (arrayBlock[index + (this._width * 2)] != 0) {
+            if (arrayBlock[index] == 0 && arrayBlock[index + (this._width * 2)] != 0) {
                 let cell = cc.instantiate(this.getCell)
                 cell.parent = this.getParentNode.node
                 cell.x = listBlock[index + (this._width * 2)].x
                 cell.y = listBlock[index + (this._width * 2)].y
-                cell.getChildByName("label").getComponent("cc.Label").string = arrayBlock[index + (this._width * 2)]
+                cell.getChildByName("label").getComponent("cc.Label").string = arrayBlock[index + (this._width * 3)]
                 cell.color = cc.color(Color[arrayBlock[index + (this._width * 2)]])
-                if (arrayBlock[index] == 0) {
+                if (arrayBlock[index + this._width] == 0) {
                     let callFunc = cc.callFunc(() => {
                         cell.destroy()
                     })
                     let moveTo = cc.moveTo(timeAction, cc.v2(cell.x, positionY[0]))
                     cell.runAction(cc.sequence(moveTo, callFunc))
-                    cc.tween(listBlock[index + (this._width)])
+                    cc.tween(listBlock[index])
                         .to(0, { opacity: 0 })
                         .delay(0.2)
-                        .to(0, { opacity: 255 })
+                        .to(0.1, { opacity: 255 })
                         .by(0.1, { scale: 0.1 })
                         .by(0.1, { scale: -0.1 })
                         .start()
-
                 }
-                else if (arrayBlock[index + this._width] == 0) {
+                else if (arrayBlock[index] == 0) {
                     let callFunc = cc.callFunc(() => {
                         cell.destroy()
                     })
                     let moveTo = cc.moveTo(timeAction, cc.v2(cell.x, positionY[1]))
                     cell.runAction(cc.sequence(moveTo, callFunc))
-                    cc.tween(listBlock[index + (this._width)])
+                    cc.tween(listBlock[index + this._width])
                         .to(0, { opacity: 0 })
                         .delay(0.2)
-                        .to(0, { opacity: 255 })
+                        .to(0.1, { opacity: 255 })
                         .by(0.1, { scale: 0.1 })
                         .by(0.1, { scale: -0.1 })
                         .start()
-
                 }
                 else {
                     cell.destroy()
@@ -138,6 +150,7 @@ cc.Class({
                 }
 
             }
+            
 
             arrayBlock[index] = newColumn[0]
             arrayBlock[index + this._width] = newColumn[1]
@@ -162,15 +175,14 @@ cc.Class({
             listBlock[index + this._width].getComponent("block").labelPrefab.string = newColumn[1]
             listBlock[index + (this._width * 2)].getComponent("block").labelPrefab.string = newColumn[2]
             listBlock[index + (this._width * 3)].getComponent("block").labelPrefab.string = newColumn[3]
-
-            if (arrayBlock[index] != 0) {
+            if (arrayBlock[index + (this._width * 3)] == 0 && arrayBlock[index] != 0) {
                 let cell = cc.instantiate(this.getCell)
                 cell.parent = this.getParentNode.node
                 cell.x = listBlock[index].x
                 cell.y = listBlock[index].y
                 cell.getChildByName("label").getComponent("cc.Label").string = arrayBlock[index]
                 cell.color = cc.color(Color[arrayBlock[index]])
-                if (arrayBlock[index + (this._width * 3)] == 0) {
+                if (arrayBlock[index + this._width] == 0 && arrayBlock[index + (this._width * 2)] == 0) {
                     let callFunc = cc.callFunc(() => {
                         cell.destroy()
                     })
@@ -179,7 +191,7 @@ cc.Class({
                     cc.tween(listBlock[index + (this._width * 3)])
                         .to(0, { opacity: 0 })
                         .delay(0.2)
-                        .to(0, { opacity: 255 })
+                        .to(0.1, { opacity: 255 })
                         .by(0.1, { scale: 0.1 })
                         .by(0.1, { scale: -0.1 })
                         .start()
@@ -193,7 +205,21 @@ cc.Class({
                     cc.tween(listBlock[index + (this._width * 2)])
                         .to(0, { opacity: 0 })
                         .delay(0.2)
-                        .to(0, { opacity: 255 })
+                        .to(0.1, { opacity: 255 })
+                        .by(0.1, { scale: 0.1 })
+                        .by(0.1, { scale: -0.1 })
+                        .start()
+                }
+                else if (arrayBlock[index + (this._width * 3)] == 0) {
+                    let callFunc = cc.callFunc(() => {
+                        cell.destroy()
+                    })
+                    let moveTo = cc.moveTo(timeAction, cc.v2(cell.x, positionY[1]))
+                    cell.runAction(cc.sequence(moveTo, callFunc))
+                    cc.tween(listBlock[index + (this._width * 2)])
+                        .to(0, { opacity: 0 })
+                        .delay(0.2)
+                        .to(0.1, { opacity: 255 })
                         .by(0.1, { scale: 0.1 })
                         .by(0.1, { scale: -0.1 })
                         .start()
@@ -204,15 +230,14 @@ cc.Class({
                 }
 
             }
-
-            if (arrayBlock[index + this._width] != 0) {
+            if (arrayBlock[index + (this._width * 3)] == 0 && arrayBlock[index + this._width] != 0){
                 let cell = cc.instantiate(this.getCell)
                 cell.parent = this.getParentNode.node
                 cell.x = listBlock[index + this._width].x
                 cell.y = listBlock[index + this._width].y
                 cell.getChildByName("label").getComponent("cc.Label").string = arrayBlock[index + this._width]
                 cell.color = cc.color(Color[arrayBlock[index + this._width]])
-                if (arrayBlock[index + (this._width * 3)] == 0) {
+                if (arrayBlock[index + (this._width * 2)] == 0) {
                     let callFunc = cc.callFunc(() => {
                         cell.destroy()
                     })
@@ -221,12 +246,12 @@ cc.Class({
                     cc.tween(listBlock[index + (this._width * 3)])
                         .to(0, { opacity: 0 })
                         .delay(0.2)
-                        .to(0, { opacity: 255 })
+                        .to(0.1, { opacity: 255 })
                         .by(0.1, { scale: 0.1 })
                         .by(0.1, { scale: -0.1 })
                         .start()
                 }
-                else if (arrayBlock[index + (this._width * 2)] == 0) {
+                else if (arrayBlock[index + (this._width * 3)] == 0) {
                     let callFunc = cc.callFunc(() => {
                         cell.destroy()
                     })
@@ -235,7 +260,7 @@ cc.Class({
                     cc.tween(listBlock[index + (this._width * 2)])
                         .to(0, { opacity: 0 })
                         .delay(0.2)
-                        .to(0, { opacity: 255 })
+                        .to(0.1, { opacity: 255 })
                         .by(0.1, { scale: 0.1 })
                         .by(0.1, { scale: -0.1 })
                         .start()
@@ -244,9 +269,7 @@ cc.Class({
                     cell.destroy()
 
                 }
-
-            }
-
+            } 
             arrayBlock[index] = newColumn[0]
             arrayBlock[index + this._width] = newColumn[1]
             arrayBlock[index + (this._width * 2)] = newColumn[2]
@@ -270,7 +293,7 @@ cc.Class({
                 listBlock[index + 1].getComponent("block").labelPrefab.string = newRow[1]
                 listBlock[index + 2].getComponent("block").labelPrefab.string = newRow[2]
                 listBlock[index + 3].getComponent("block").labelPrefab.string = newRow[3]
-                if (arrayBlock[index + 3] != 0) {
+                if (arrayBlock[index + 3] != 0 && arrayBlock[index + 1] == 0) {
                     let cell = cc.instantiate(this.getCell)
                     cell.parent = this.getParentNode.node
                     cell.x = listBlock[index + 3].x
@@ -286,7 +309,7 @@ cc.Class({
                         cc.tween(listBlock[index])
                             .to(0, { opacity: 0 })
                             .delay(0.2)
-                            .to(0, { opacity: 255 })
+                            .to(0.1, { opacity: 255 })
                             .by(0.1, { scale: 0.1 })
                             .by(0.1, { scale: -0.1 })
                             .start()
@@ -300,7 +323,7 @@ cc.Class({
                         cc.tween(listBlock[index+1])
                             .to(0, { opacity: 0 })
                             .delay(0.2)
-                            .to(0, { opacity: 255 })
+                            .to(0.1, { opacity: 255 })
                             .by(0.1, { scale: 0.1 })
                             .by(0.1, { scale: -0.1 })
                             .start()
@@ -311,7 +334,7 @@ cc.Class({
 
                 }
 
-                if (arrayBlock[index + 2] != 0) {
+                if (arrayBlock[index + 2] != 0  && arrayBlock[index + 1] == 0) {
                     let cell = cc.instantiate(this.getCell)
                     cell.parent = this.getParentNode.node
                     cell.x = listBlock[index + 2].x
@@ -328,7 +351,7 @@ cc.Class({
                         cc.tween(listBlock[index])
                             .to(0, { opacity: 0 })
                             .delay(0.2)
-                            .to(0, { opacity: 255 })
+                            .to(0.1, { opacity: 255 })
                             .by(0.1, { scale: 0.1 })
                             .by(0.1, { scale: -0.1 })
                             .start()
@@ -342,7 +365,7 @@ cc.Class({
                         cc.tween(listBlock[index+1])
                             .to(0, { opacity: 0 })
                             .delay(0.2)
-                            .to(0, { opacity: 255 })
+                            .to(0.1, { opacity: 255 })
                             .by(0.1, { scale: 0.1 })
                             .by(0.1, { scale: -0.1 })
                             .start()
@@ -375,7 +398,7 @@ cc.Class({
                 listBlock[index + 1].getComponent("block").labelPrefab.string = newRow[1]
                 listBlock[index + 2].getComponent("block").labelPrefab.string = newRow[2]
                 listBlock[index + 3].getComponent("block").labelPrefab.string = newRow[3]
-                if (arrayBlock[index] != 0) {
+                if (arrayBlock[index] != 0  && arrayBlock[index + 2] == 0) {
                     let cell = cc.instantiate(this.getCell)
                     cell.parent = this.getParentNode.node
                     cell.x = listBlock[index].x
@@ -391,7 +414,7 @@ cc.Class({
                         cc.tween(listBlock[index+3])
                                 .to(0, { opacity: 0 })
                                 .delay(0.2)
-                                .to(0, { opacity: 255 })
+                                .to(0.1, { opacity: 255 })
                                 .by(0.1, { scale: 0.1 })
                                 .by(0.1, { scale: -0.1 })
                                 .start()
@@ -402,7 +425,7 @@ cc.Class({
                             cc.tween(listBlock[index+2])
                                 .to(0, { opacity: 0 })
                                 .delay(0.2)
-                                .to(0, { opacity: 255 })
+                                .to(0.1, { opacity: 255 })
                                 .by(0.1, { scale: 0.1 })
                                 .by(0.1, { scale: -0.1 })
                                 .start()
@@ -417,7 +440,7 @@ cc.Class({
 
                 }
 
-                if (arrayBlock[index + 1] != 0) {
+                if (arrayBlock[index + 1] != 0  && arrayBlock[index + 2] == 0) {
                     let cell = cc.instantiate(this.getCell)
                     cell.parent = this.getParentNode.node
                     cell.x = listBlock[index + 1].x

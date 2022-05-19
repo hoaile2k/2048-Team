@@ -145,25 +145,25 @@ cc.Class({
     moveUp: function () {
         this.scheduleOnce(()=>{
             this._canMove = true
-        },0.35)
+        },0.5)
         Emitter.instance.emit(emitName.moveUp, this._listBlock, this._arrayBlock, this.generate)
     },
     moveDown: function () {
         this.scheduleOnce(()=>{
             this._canMove = true
-        },0.35)
+        },0.5)
         Emitter.instance.emit(emitName.moveDown, this._listBlock, this._arrayBlock, this.generate)
     },
     moveLeft: function () {
         this.scheduleOnce(()=>{
             this._canMove = true
-        },0.35)
+        },0.5)
         Emitter.instance.emit(emitName.moveLeft, this._listBlock, this._arrayBlock, this.generate)
     },
     moveRight: function () {
         this.scheduleOnce(()=>{
             this._canMove = true
-        },0.35)
+        },0.5)
         Emitter.instance.emit(emitName.moveRight, this._listBlock, this._arrayBlock, this.generate)
     },
 
