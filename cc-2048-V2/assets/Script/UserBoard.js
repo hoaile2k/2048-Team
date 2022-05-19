@@ -26,15 +26,15 @@ cc.Class({
         if(!cc.sys.localStorage.length){
             return;
         }else if(cc.sys.localStorage.length){
-            // this.content.removeAllChildren();
+            this.content.removeAllChildren();
             for(let i=0;i<cc.sys.localStorage.length;i++){
-                cc.log(cc.sys.localStorage.getItem(`userId${i}`));
-                // let item = cc.instantiate(this.userList);
-                // item.parent = this.content;
-                // item.y = -30-(i*60);
-                // item.getChildByName("username").getComponent(cc.Label).string = cc.sys.localStorage.getItem(i).name;
-                // item.getChildByName("score").getComponent(cc.Label).string = cc.sys.localStorage.getItem(i).score;
-                // this.content.height += 10;
+                cc.log(JSON.parse(cc.sys.localStorage.getItem(`userId${i}`)));
+                let item = cc.instantiate(this.userList);
+                item.parent = this.content;
+                item.y = -10-(i*20);
+                item.getChildByName("username").getComponent(cc.Label).string = JSON.parse(cc.sys.localStorage.getItem(`userId${i}`)).name;
+                item.getChildByName("score").getComponent(cc.Label).string = JSON.parse(cc.sys.localStorage.getItem(`userId${i}`)).score;
+                this.content.height += 10;
             }
         }
     },
