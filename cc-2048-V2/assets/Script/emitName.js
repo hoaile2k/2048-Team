@@ -5,6 +5,5 @@ const name = {
     moveRight: "moveRight",
     generate: "generate",
     blockColor: "color",
-    
 }
 module.exports = name

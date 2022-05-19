@@ -7,6 +7,7 @@ cc.Class({
         logo: cc.Sprite,
         loading: cc.Node,
         boardGame: cc.Node,
+        _flag: false,
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -18,15 +19,18 @@ cc.Class({
         this.logo.node.runAction(cc.moveBy(1,0,100));
     },
     loadingGame(){
-        this.loading.active = true;
-        this.loading.runAction(cc.sequence(cc.callFunc(this.onCloud,this),cc.delayTime(2),cc.callFunc(this.offCloud,this)));
-        this.loading.runAction(cc.sequence(
-            cc.delayTime(1),
-            cc.callFunc(()=>{this.loading.getChildByName("BG").active = true}),
-            cc.delayTime(2),
-            cc.callFunc(this.loadProgressBar,this)
-            )
-        );
+        if(!this._flag){
+            this._flag = true;
+            this.loading.active = true;
+            this.loading.runAction(cc.sequence(cc.callFunc(this.onCloud,this),cc.delayTime(2),cc.callFunc(this.offCloud,this)));
+            this.loading.runAction(cc.sequence(
+                cc.delayTime(1),
+                cc.callFunc(()=>{this.loading.getChildByName("BG").active = true}),
+                cc.delayTime(2),
+                cc.callFunc(this.loadProgressBar,this)
+                )
+            );
+        }
     },
     loadProgressBar(){
         this.loading.getChildByName("BG").getChildByName("ProgressBar").runAction(
@@ -42,7 +46,9 @@ cc.Class({
             cc.delayTime(2),
             cc.callFunc(()=>{this.loading.getChildByName("BG").active = false}),
             cc.callFunc(this.loadBoardGame,this),
-            cc.callFunc(this.offCloud,this)
+            cc.callFunc(this.offCloud,this),
+            cc.delayTime(1),
+            cc.callFunc(()=>{this.loading.active = false}),
             )
         );
     },
