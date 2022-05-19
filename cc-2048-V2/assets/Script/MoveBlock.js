@@ -65,6 +65,13 @@ cc.Class({
                     })
                     let moveTo = cc.moveTo(timeAction, cc.v2(cell.x, positionY[0]))
                     cell.runAction(cc.sequence(moveTo, callFunc))
+                    cc.tween(listBlock[index])
+                        .to(0, { opacity: 0 })
+                        .delay(0.2)
+                        .to(0, { opacity: 255 })
+                        .by(0.1, { scale: 0.1 })
+                        .by(0.1, { scale: -0.1 })
+                        .start()
                 }
                 else if (arrayBlock[index + this._width] == 0) {
                     let callFunc = cc.callFunc(() => {
@@ -72,11 +79,19 @@ cc.Class({
                     })
                     let moveTo = cc.moveTo(timeAction, cc.v2(cell.x, positionY[1]))
                     cell.runAction(cc.sequence(moveTo, callFunc))
+                    cc.tween(listBlock[index])
+                        .to(0, { opacity: 0 })
+                        .delay(0.2)
+                        .to(0, { opacity: 255 })
+                        .by(0.1, { scale: 0.1 })
+                        .by(0.1, { scale: -0.1 })
+                        .start()
                 }
                 else {
                     cell.destroy()
 
                 }
+
 
             }
 
@@ -93,6 +108,14 @@ cc.Class({
                     })
                     let moveTo = cc.moveTo(timeAction, cc.v2(cell.x, positionY[0]))
                     cell.runAction(cc.sequence(moveTo, callFunc))
+                    cc.tween(listBlock[index + (this._width)])
+                        .to(0, { opacity: 0 })
+                        .delay(0.2)
+                        .to(0, { opacity: 255 })
+                        .by(0.1, { scale: 0.1 })
+                        .by(0.1, { scale: -0.1 })
+                        .start()
+
                 }
                 else if (arrayBlock[index + this._width] == 0) {
                     let callFunc = cc.callFunc(() => {
@@ -100,6 +123,14 @@ cc.Class({
                     })
                     let moveTo = cc.moveTo(timeAction, cc.v2(cell.x, positionY[1]))
                     cell.runAction(cc.sequence(moveTo, callFunc))
+                    cc.tween(listBlock[index + (this._width)])
+                        .to(0, { opacity: 0 })
+                        .delay(0.2)
+                        .to(0, { opacity: 255 })
+                        .by(0.1, { scale: 0.1 })
+                        .by(0.1, { scale: -0.1 })
+                        .start()
+
                 }
                 else {
                     cell.destroy()
@@ -145,6 +176,13 @@ cc.Class({
                     })
                     let moveTo = cc.moveTo(timeAction, cc.v2(cell.x, positionY[3]))
                     cell.runAction(cc.sequence(moveTo, callFunc))
+                    cc.tween(listBlock[index + (this._width * 3)])
+                        .to(0, { opacity: 0 })
+                        .delay(0.2)
+                        .to(0, { opacity: 255 })
+                        .by(0.1, { scale: 0.1 })
+                        .by(0.1, { scale: -0.1 })
+                        .start()
                 }
                 else if (arrayBlock[index + (this._width * 2)] == 0) {
                     let callFunc = cc.callFunc(() => {
@@ -152,6 +190,13 @@ cc.Class({
                     })
                     let moveTo = cc.moveTo(timeAction, cc.v2(cell.x, positionY[2]))
                     cell.runAction(cc.sequence(moveTo, callFunc))
+                    cc.tween(listBlock[index + (this._width * 2)])
+                        .to(0, { opacity: 0 })
+                        .delay(0.2)
+                        .to(0, { opacity: 255 })
+                        .by(0.1, { scale: 0.1 })
+                        .by(0.1, { scale: -0.1 })
+                        .start()
                 }
                 else {
                     cell.destroy()
@@ -173,6 +218,13 @@ cc.Class({
                     })
                     let moveTo = cc.moveTo(timeAction, cc.v2(cell.x, positionY[3]))
                     cell.runAction(cc.sequence(moveTo, callFunc))
+                    cc.tween(listBlock[index + (this._width * 3)])
+                        .to(0, { opacity: 0 })
+                        .delay(0.2)
+                        .to(0, { opacity: 255 })
+                        .by(0.1, { scale: 0.1 })
+                        .by(0.1, { scale: -0.1 })
+                        .start()
                 }
                 else if (arrayBlock[index + (this._width * 2)] == 0) {
                     let callFunc = cc.callFunc(() => {
@@ -180,6 +232,13 @@ cc.Class({
                     })
                     let moveTo = cc.moveTo(timeAction, cc.v2(cell.x, positionY[2]))
                     cell.runAction(cc.sequence(moveTo, callFunc))
+                    cc.tween(listBlock[index + (this._width * 2)])
+                        .to(0, { opacity: 0 })
+                        .delay(0.2)
+                        .to(0, { opacity: 255 })
+                        .by(0.1, { scale: 0.1 })
+                        .by(0.1, { scale: -0.1 })
+                        .start()
                 }
                 else {
                     cell.destroy()
@@ -218,20 +277,33 @@ cc.Class({
                     cell.y = listBlock[index + 3].y
                     cell.getChildByName("label").getComponent("cc.Label").string = arrayBlock[index + 3]
                     cell.color = cc.color(Color[arrayBlock[index + 3]])
-                    if (newRow[0] == 0) {
+                    if (arrayBlock[index] == 0) {
                         let callFunc = cc.callFunc(() => {
                             cell.destroy()
                         })
                         let moveTo = cc.moveTo(timeAction, cc.v2(positionX[0], cell.y))
                         cell.runAction(cc.sequence(moveTo, callFunc))
+                        cc.tween(listBlock[index])
+                            .to(0, { opacity: 0 })
+                            .delay(0.2)
+                            .to(0, { opacity: 255 })
+                            .by(0.1, { scale: 0.1 })
+                            .by(0.1, { scale: -0.1 })
+                            .start()
                     }
-                    else if (newRow[1] == 0) {
+                    else if (arrayBlock[index+1] == 0) {
                         let callFunc = cc.callFunc(() => {
                             cell.destroy()
-
                         })
                         let moveTo = cc.moveTo(timeAction, cc.v2(positionX[1], cell.y))
                         cell.runAction(cc.sequence(moveTo, callFunc))
+                        cc.tween(listBlock[index+1])
+                            .to(0, { opacity: 0 })
+                            .delay(0.2)
+                            .to(0, { opacity: 255 })
+                            .by(0.1, { scale: 0.1 })
+                            .by(0.1, { scale: -0.1 })
+                            .start()
                     }
                     else {
                         cell.destroy()
@@ -247,19 +319,33 @@ cc.Class({
 
                     cell.getChildByName("label").getComponent("cc.Label").string = arrayBlock[index + 2]
                     cell.color = cc.color(Color[arrayBlock[index + 2]])
-                    if (newRow[0] == 0) {
+                    if (arrayBlock[index] == 0) {
                         let callFunc = cc.callFunc(() => {
                             cell.destroy()
                         })
                         let moveTo = cc.moveTo(timeAction, cc.v2(positionX[0], cell.y))
                         cell.runAction(cc.sequence(moveTo, callFunc))
+                        cc.tween(listBlock[index])
+                            .to(0, { opacity: 0 })
+                            .delay(0.2)
+                            .to(0, { opacity: 255 })
+                            .by(0.1, { scale: 0.1 })
+                            .by(0.1, { scale: -0.1 })
+                            .start()
                     }
-                    else if (newRow[1] == 0) {
+                    else if (arrayBlock[index + 1] == 0) {
                         let callFunc = cc.callFunc(() => {
                             cell.destroy()
                         })
                         let moveTo = cc.moveTo(timeAction, cc.v2(positionX[1], cell.y))
                         cell.runAction(cc.sequence(moveTo, callFunc))
+                        cc.tween(listBlock[index+1])
+                            .to(0, { opacity: 0 })
+                            .delay(0.2)
+                            .to(0, { opacity: 255 })
+                            .by(0.1, { scale: 0.1 })
+                            .by(0.1, { scale: -0.1 })
+                            .start()
                     }
                     else {
                         cell.destroy()
@@ -296,16 +382,30 @@ cc.Class({
                     cell.y = listBlock[index].y
                     cell.getChildByName("label").getComponent("cc.Label").string = arrayBlock[index]
                     cell.color = cc.color(Color[arrayBlock[index]])
-                    if (newRow[3] == 0) {
+                    if (arrayBlock[index+3] == 0) {
                         let callFunc = cc.callFunc(() => {
                             cell.destroy()
                         })
                         let moveTo = cc.moveTo(timeAction, cc.v2(positionX[3], cell.y))
                         cell.runAction(cc.sequence(moveTo, callFunc))
+                        cc.tween(listBlock[index+3])
+                                .to(0, { opacity: 0 })
+                                .delay(0.2)
+                                .to(0, { opacity: 255 })
+                                .by(0.1, { scale: 0.1 })
+                                .by(0.1, { scale: -0.1 })
+                                .start()
                     }
-                    else if (newRow[2] == 0) {
+                    else if (arrayBlock[index+2] == 0) {
                         let callFunc = cc.callFunc(() => {
                             cell.destroy()
+                            cc.tween(listBlock[index+2])
+                                .to(0, { opacity: 0 })
+                                .delay(0.2)
+                                .to(0, { opacity: 255 })
+                                .by(0.1, { scale: 0.1 })
+                                .by(0.1, { scale: -0.1 })
+                                .start()
 
                         })
                         let moveTo = cc.moveTo(timeAction, cc.v2(positionX[2], cell.y))
