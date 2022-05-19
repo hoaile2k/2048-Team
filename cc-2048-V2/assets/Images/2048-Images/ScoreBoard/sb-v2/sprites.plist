@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+	<dict>
+		<key>frames</key>
+		<dict>
+			<key>scoreboard_01.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{0,212},{203,288}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{0,0},{203,288}}</string>
+				<key>sourceSize</key>
+				<string>{203,288}</string>
+			</dict>
+
+			<key>scoreboard_02.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{204,381},{53,42}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{0,0},{53,42}}</string>
+				<key>sourceSize</key>
+				<string>{53,42}</string>
+			</dict>
+
+			<key>scoreboard_03.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{204,338},{54,42}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{0,0},{54,42}}</string>
+				<key>sourceSize</key>
+				<string>{54,42}</string>
+			</dict>
+
+			<key>scoreboard_04.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{0,70},{283,69}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{0,0},{283,69}}</string>
+				<key>sourceSize</key>
+				<string>{283,69}</string>
+			</dict>
+
+			<key>scoreboard_05.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{0,0},{283,69}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{0,0},{283,69}}</string>
+				<key>sourceSize</key>
+				<string>{283,69}</string>
+			</dict>
+
+			<key>scoreboard_06.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{0,140},{283,71}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{0,0},{283,71}}</string>
+				<key>sourceSize</key>
+				<string>{283,71}</string>
+			</dict>
+
+			<key>scoreboard_07.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{204,295},{133,42}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{0,0},{133,42}}</string>
+				<key>sourceSize</key>
+				<string>{133,42}</string>
+			</dict>
+
+			<key>scoreboard_08.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{204,212},{160,39}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{0,0},{160,39}}</string>
+				<key>sourceSize</key>
+				<string>{160,39}</string>
+			</dict>
+
+			<key>scoreboard_09.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{204,252},{159,42}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{0,0},{159,42}}</string>
+				<key>sourceSize</key>
+				<string>{159,42}</string>
+			</dict>
+
+		</dict>
+
+		<key>metadata</key>
+		<dict>
+			<key>format</key>
+			<integer>2</integer>
+			<key>size</key>
+			<string>{512,512}</string>
+			<key>textureFileName</key>
+			<string>sprites.png</string>
+			</dict>
+		</dict>
+</plist>

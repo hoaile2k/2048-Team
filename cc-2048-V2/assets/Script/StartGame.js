@@ -2,9 +2,11 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
+        startLayout: cc.Node,
         userBoard: cc.Node,
         logo: cc.Sprite,
         loading: cc.Node,
+        boardGame: cc.Node,
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -34,6 +36,19 @@ cc.Class({
                 ),10
             )
         );
+        this.loading.runAction(cc.sequence(
+            cc.delayTime(2),
+            cc.callFunc(this.onCloud,this),
+            cc.delayTime(2),
+            cc.callFunc(()=>{this.loading.getChildByName("BG").active = false}),
+            cc.callFunc(this.loadBoardGame,this),
+            cc.callFunc(this.offCloud,this)
+            )
+        );
+    },
+    loadBoardGame(){
+        this.startLayout.active = false;
+        this.boardGame.active = true;
     },
     onCloud(){
         this.loading.getChildByName("cloud1").runAction(cc.moveBy(1,400,0));
