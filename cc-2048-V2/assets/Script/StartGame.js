@@ -1,3 +1,4 @@
+const user = require("User");
 cc.Class({
     extends: cc.Component,
 
@@ -7,6 +8,7 @@ cc.Class({
         logo: cc.Sprite,
         loading: cc.Node,
         boardGame: cc.Node,
+        username: cc.Label,
         _flag: false,
     },
 
@@ -18,7 +20,16 @@ cc.Class({
         this.node.active = false;
         this.logo.node.runAction(cc.moveBy(1,0,100));
     },
+    createUser(){
+        let newUser = new user();
+        newUser.name = this.username.string;
+        newUser.score = 0;
+        cc.sys.localStorage.setItem("userId"+cc.sys.localStorage.length-1, JSON.stringify(newUser));
+    },
     loadingGame(){
+        this.createUser();
+        let arrUser = cc.sys.localStorage;
+        cc.log(arrUser);
         if(!this._flag){
             this._flag = true;
             this.loading.active = true;
