@@ -357,7 +357,10 @@ cc.Class({
     combineRowLeft(listBlock, arrayBlock) {
         for (let index = 0; index <= 15; index++) {
             if (arrayBlock[index] === arrayBlock[index + 1]) {
-                if ((index + 1) % 4 != 0) {
+                if ((index + 1) % 4 == 0) {
+
+                }
+                else {
                     let combinedTotal = arrayBlock[index] + arrayBlock[index + 1]
                     listBlock[index].getComponent("block").labelPrefab.string = combinedTotal
                     listBlock[index + 1].getComponent("block").labelPrefab.string = 0
@@ -374,7 +377,6 @@ cc.Class({
     combineRowRight(listBlock, arrayBlock) {
         for (let index = 15; index >= 0; index--) {
             if (arrayBlock[index] === arrayBlock[index + 1]) {
-
                 if ((index + 1) % 4 == 0) {
 
                 }
@@ -424,6 +426,7 @@ cc.Class({
         }
     },
     moveRightCombined(listBlock, arrayBlock) {
+<<<<<<< Updated upstream
         if (this._canMove == true) {
 
             this.moveRight(listBlock, arrayBlock)
@@ -452,6 +455,28 @@ cc.Class({
                 this.isFull(arrayBlock)
             }
         }
+=======
+        this.moveRight(listBlock, arrayBlock)
+        this.combineRowRight(listBlock, arrayBlock)
+        this.moveRight(listBlock, arrayBlock)
+        if (arrayBlock.includes(0)) {
+            Emitter.instance.emit(emitName.generate)
+        }
+        else {
+           this.canMoveRow(arrayBlock)
+        }
+    },
+    moveLeftCombined(listBlock, arrayBlock) {
+        this.moveLeft(listBlock, arrayBlock)
+        this.combineRowLeft(listBlock, arrayBlock)
+        this.moveLeft(listBlock, arrayBlock)
+        if (arrayBlock.includes(0)) {
+            Emitter.instance.emit(emitName.generate)
+        }
+        else {
+            this.canMoveRow(arrayBlock)
+        }
+>>>>>>> Stashed changes
     },
     moveUpCombined(listBlock, arrayBlock) {
         this.moveUp(listBlock, arrayBlock)
@@ -461,7 +486,11 @@ cc.Class({
             Emitter.instance.emit(emitName.generate)
         }
         else {
+<<<<<<< Updated upstream
             this.isFull(arrayBlock)
+=======
+            this.canMoveColumn(arrayBlock)
+>>>>>>> Stashed changes
         }
     },
     moveDownCombined(listBlock, arrayBlock) {
@@ -473,6 +502,7 @@ cc.Class({
 
         }
         else {
+<<<<<<< Updated upstream
             this.isFull(arrayBlock)
         }
     },
@@ -506,9 +536,52 @@ cc.Class({
     isWinning(total) {
         if (total == 8) {
             cc.log("you win")
+=======
+            this.canMoveColumn(arrayBlock)
+>>>>>>> Stashed changes
         }
+    },
+    canMoveRow(arrayBlock){
+        for(let index =0; index<=15; index++){
+            //move row
+            if(arrayBlock[index] == arrayBlock[index+1] ){
+                if((index + 1) % 4 == 0)
+                this._canMoveRight = true
+            }else{
+                this._canMoveRight = false
+            }
+        }
+        this.isLose()
+        cc.log("can't move row")
+    },
+    canMoveColumn(arrayBlock){
+        for(let index =0; index<=15; index++){
+            //move column
+            if (arrayBlock[index] == arrayBlock[index + this._width]){
+                this._canMoveDown = true
+            }else{
+                cc.log('cant move column')
+                this._canMoveDown = false
+            }
+        }
+        this.isLose()
+    },
+    isLose(){
+        cc.log(this._canMoveRight,this._canMoveRight)
+        if(this._canMoveRight == false && this._canMoveDown == false){
+            cc.log("you lose")
+        }
+        // if(this._canMoveRight){
+        //     this._canMoveRight = true
+        //     this._canMoveDown = true
+        // }
     }
 
+<<<<<<< Updated upstream
 
     // update (dt) {},
 });
+=======
+    // update (dt) {},
+});
+>>>>>>> Stashed changes

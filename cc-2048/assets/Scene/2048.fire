@@ -528,7 +528,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 640,
-      "height": 640
+      "height": 160
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -602,7 +602,7 @@
     "_layoutSize": {
       "__type__": "cc.Size",
       "width": 640,
-      "height": 640
+      "height": 160
     },
     "_resize": 1,
     "_N$layoutType": 3,
@@ -649,6 +649,7 @@
     "_enabled": true,
     "_width": 4,
     "_isMoveRight": false,
+<<<<<<< Updated upstream
     "_canMove": true,
     "getCell": {
       "__uuid__": "74e95a30-c8a9-4640-9b42-ec2e83f1d1a5"
@@ -659,6 +660,12 @@
     "getScore": {
       "__id__": 8
     },
+=======
+    "_canMoveLeft": true,
+    "_canMoveRight": true,
+    "_canMoveUp": true,
+    "_canMoveDown": true,
+>>>>>>> Stashed changes
     "_id": "1bdYiV2jBNDrvC9iW3iIzC"
   },
   {

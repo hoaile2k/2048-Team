@@ -37,9 +37,13 @@ cc.Class({
 
     start() {
         for (let index = 0; index <= 15; index++) {
+            let x = Math.floor(index/4) 
+            let y = index % 4
             let block = cc.instantiate(this.blockPrefab)
             block.getComponent("block").labelPrefab.string = ""
             block.parent = this.node
+            block.x = x * 160
+            block.y = y * 160
             this._arrayBlock.push(block.getComponent("block").labelPrefab.string)
             this._listBlock.push(block)
         }
