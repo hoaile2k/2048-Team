@@ -24,7 +24,6 @@ cc.Class({
         this.boardGame.getComponent(cc.Sprite).node.on("mousedown",this.unloadLeadBoard,this);
     },
     textChange(value){
-        cc.log(value);
         this.username.string = value;
     },
     sortScore(){
@@ -47,7 +46,6 @@ cc.Class({
         }else if(cc.sys.localStorage.length){
             this.content.removeAllChildren();
             for(let i=0;i<cc.sys.localStorage.length;i++){
-                cc.log(JSON.parse(cc.sys.localStorage.getItem(`userId${i}`)));
                 let item = cc.instantiate(this.userList);
                 item.parent = this.content;
                 item.y = -10-(i*20);
