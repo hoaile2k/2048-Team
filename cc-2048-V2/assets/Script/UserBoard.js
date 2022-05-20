@@ -1,9 +1,6 @@
 const Emitter = require("mEmitter")
 const emitName = require("emitName")
-<<<<<<< Updated upstream
-=======
 var sortArr = []
->>>>>>> Stashed changes
 cc.Class({
     extends: cc.Component,
 
@@ -15,10 +12,7 @@ cc.Class({
         content: cc.Node,
         _offBoard: null,
         _flag: false,
-<<<<<<< Updated upstream
-=======
         _flagSort: false,
->>>>>>> Stashed changes
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -30,8 +24,6 @@ cc.Class({
         cc.log(value);
         this.username.string = value;
     },
-<<<<<<< Updated upstream
-=======
     sortScore(){
         let arrLocal = cc.sys.localStorage;
         let max;
@@ -47,7 +39,6 @@ cc.Class({
             sortArr.push(max);
         }
     },
->>>>>>> Stashed changes
     addLeadBoard(){
         if(!cc.sys.localStorage.length){
             return;
@@ -67,31 +58,23 @@ cc.Class({
     loadLeadBoard(){
         if(!this._flag){
             this._flag = true;
-<<<<<<< Updated upstream
-            this.leadBoard.runAction(cc.moveBy(0.3,0,-700));
-=======
             this.leadBoard.runAction(cc.sequence(
                 cc.callFunc(()=>{this.boardGame.getComponent(cc.Sprite).node.off("mousedown")}),
                 cc.moveBy(0.3,0,-700),
                 cc.delayTime(1.5),
                 cc.callFunc(()=>{this.boardGame.getComponent(cc.Sprite).node.on("mousedown",this.unloadLeadBoard,this)}),
             ));
->>>>>>> Stashed changes
         }
     },
     unloadLeadBoard(){
         if(this._flag){
             this._flag = false;
-<<<<<<< Updated upstream
-            this.leadBoard.runAction(cc.moveBy(0.3,0,700));
-=======
             this.leadBoard.runAction(cc.sequence(
                 cc.callFunc(()=>{this.boardGame.getComponent(cc.Sprite).node.off("mousedown")}),
                 cc.moveBy(0.3,0,700),
                 cc.delayTime(1.5),
                 cc.callFunc(()=>{this.boardGame.getComponent(cc.Sprite).node.on("mousedown",this.unloadLeadBoard,this)}),
             ));
->>>>>>> Stashed changes
         }
     },
     start () {

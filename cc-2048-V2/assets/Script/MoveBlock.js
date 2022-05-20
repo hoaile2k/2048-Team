@@ -1,21 +1,10 @@
 const Emitter = require("mEmitter")
 const emitName = require("emitName")
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
 cc.Class({
     extends: cc.Component,
 
     properties: {
         _width: 4,
-<<<<<<< Updated upstream
-        _isMoveRight: false,
-        _canMoveLeft: true,
-        _canMoveRight: true,
-        _canMoveUp: true,
-        _canMoveDown: true,
-=======
         _canMove: true,
         _isWin: false,
         _canMoveVertical: true,
@@ -23,7 +12,6 @@ cc.Class({
         getCell: cc.Prefab,
         getParentNode: cc.Component,
         getScore: cc.Label,
->>>>>>> Stashed changes
     },
 
     onLoad() {
@@ -38,7 +26,14 @@ cc.Class({
         Emitter.instance.registerEvent(emitName.moveRight, this.evtMoveRight)
     },
     start() {
+        this.canMoveRight = true
+        this.canMoveLeft = true
+        this.canMoveUp = true
+        this.canMoveDown = true
 
+        this.schedule(()=>{
+            this._canMove = true
+        },0.3)
     },
 
     moveUp(listBlock, arrayBlock) {
@@ -59,11 +54,8 @@ cc.Class({
             listBlock[index + (this._width * 2)].getComponent("block").labelPrefab.string = newColumn[2]
             listBlock[index + (this._width * 3)].getComponent("block").labelPrefab.string = newColumn[3]
 
-<<<<<<< Updated upstream
-=======
             Emitter.instance.emit(emitName.aniMoveUp, arrayBlock, listBlock)
 
->>>>>>> Stashed changes
             arrayBlock[index] = newColumn[0]
             arrayBlock[index + this._width] = newColumn[1]
             arrayBlock[index + (this._width * 2)] = newColumn[2]
@@ -88,11 +80,8 @@ cc.Class({
             listBlock[index + (this._width * 2)].getComponent("block").labelPrefab.string = newColumn[2]
             listBlock[index + (this._width * 3)].getComponent("block").labelPrefab.string = newColumn[3]
 
-<<<<<<< Updated upstream
-=======
             Emitter.instance.emit(emitName.aniMoveDown, arrayBlock, listBlock)
 
->>>>>>> Stashed changes
             arrayBlock[index] = newColumn[0]
             arrayBlock[index + this._width] = newColumn[1]
             arrayBlock[index + (this._width * 2)] = newColumn[2]
@@ -117,11 +106,8 @@ cc.Class({
                 listBlock[index + 2].getComponent("block").labelPrefab.string = newRow[2]
                 listBlock[index + 3].getComponent("block").labelPrefab.string = newRow[3]
 
-<<<<<<< Updated upstream
-=======
                 Emitter.instance.emit(emitName.aniMoveLeft, arrayBlock, listBlock)
 
->>>>>>> Stashed changes
                 arrayBlock[index] = newRow[0]
                 arrayBlock[index + 1] = newRow[1]
                 arrayBlock[index + 2] = newRow[2]
@@ -130,10 +116,6 @@ cc.Class({
         }
     },
     moveRight(listBlock, arrayBlock) {
-<<<<<<< Updated upstream
-        this._isMoveRight = true
-=======
->>>>>>> Stashed changes
         for (let index = 0; index < 16; index++) {
             if (index % 4 === 0) {
                 let totalOne = arrayBlock[index]
@@ -151,11 +133,8 @@ cc.Class({
                 listBlock[index + 2].getComponent("block").labelPrefab.string = newRow[2]
                 listBlock[index + 3].getComponent("block").labelPrefab.string = newRow[3]
 
-<<<<<<< Updated upstream
-=======
                 Emitter.instance.emit(emitName.aniMoveRight, arrayBlock, listBlock)
 
->>>>>>> Stashed changes
                 arrayBlock[index] = newRow[0]
                 arrayBlock[index + 1] = newRow[1]
                 arrayBlock[index + 2] = newRow[2]
@@ -173,6 +152,9 @@ cc.Class({
                     listBlock[index + 1].getComponent("block").labelPrefab.string = 0
                     arrayBlock[index] = combinedTotal
                     arrayBlock[index + 1] = 0
+                    let score = parseInt(this.getScore.string)
+                    this.getScore.string = score + combinedTotal
+                    this.isWinning(combinedTotal)
                 }
             }
 
@@ -183,14 +165,18 @@ cc.Class({
             if (arrayBlock[index] === arrayBlock[index + 1]) {
 
                 if ((index + 1) % 4 == 0) {
-                    cc.log(true)
+
                 }
                 else {
                     let combinedTotal = arrayBlock[index] + arrayBlock[index + 1]
-                    listBlock[index+1].getComponent("block").labelPrefab.string = combinedTotal
+                    listBlock[index + 1].getComponent("block").labelPrefab.string = combinedTotal
                     listBlock[index].getComponent("block").labelPrefab.string = 0
-                    arrayBlock[index+1] = combinedTotal
+                    arrayBlock[index + 1] = combinedTotal
                     arrayBlock[index] = 0
+                    let score = parseInt(this.getScore.string)
+                    this.getScore.string = score + combinedTotal
+                    this.isWinning(combinedTotal)
+
                 }
             }
 
@@ -205,72 +191,84 @@ cc.Class({
 
                 arrayBlock[index] = combinedTotal
                 arrayBlock[index + this._width] = 0
+                let score = parseInt(this.getScore.string)
+                this.getScore.string = score + combinedTotal
+                this.isWinning(combinedTotal)
+
             }
         }
     },
-
     combineColumnDown(listBlock, arrayBlock) {
         for (let index = 15; index >= 0; index--) {
             if (arrayBlock[index] == arrayBlock[index + this._width]) {
                 let combinedTotal = arrayBlock[index] + arrayBlock[index + this._width]
                 listBlock[index].getComponent("block").labelPrefab.string = combinedTotal
                 listBlock[index + this._width].getComponent("block").labelPrefab.string = 0
-
                 arrayBlock[index] = combinedTotal
                 arrayBlock[index + this._width] = 0
+                let score = parseInt(this.getScore.string)
+                this.getScore.string = score + combinedTotal
+                this.isWinning(combinedTotal)
             }
         }
     },
-
     moveRightCombined(listBlock, arrayBlock) {
-        this.moveRight(listBlock, arrayBlock)
-        this.combineRowRight(listBlock, arrayBlock)
-        this.moveRight(listBlock, arrayBlock)
-        if(arrayBlock.includes(0)){
-            Emitter.instance.emit(emitName.generate)
+        if (this._canMove == true) {
+            this._canMove = false
+            this.moveRight(listBlock, arrayBlock)
+            this.combineRowRight(listBlock, arrayBlock)
+            this.moveRight(listBlock, arrayBlock)
+            if (arrayBlock.includes(0)) {
+                Emitter.instance.emit(emitName.generate)
+            }
+            else {
+                this.isFull(arrayBlock)
+            }
         }
-        else{
-            cc.log("full")
-        }
-        // cc.log(arrayBlock)
     },
     moveLeftCombined(listBlock, arrayBlock) {
-        this.moveLeft(listBlock, arrayBlock)
-        this.combineRowLeft(listBlock, arrayBlock)
-        this.moveLeft(listBlock, arrayBlock)
-        if(arrayBlock.includes(0)){
-            Emitter.instance.emit(emitName.generate)
-
-        }
-        else{
-            cc.log("full")
-        }    },
-    moveUpCombined(listBlock, arrayBlock) {
-        this.moveUp(listBlock, arrayBlock)
-        this.combineColumnUp(listBlock, arrayBlock)
-        this.moveUp(listBlock, arrayBlock)
-        if(arrayBlock.includes(0)){
-            Emitter.instance.emit(emitName.generate)
-
-        }
-        else{
-            cc.log("full")
+        if (this._canMove == true) {
+            this._canMove = false
+            this.moveLeft(listBlock, arrayBlock)
+            this.combineRowLeft(listBlock, arrayBlock)
+            this.moveLeft(listBlock, arrayBlock)
+            if (arrayBlock.includes(0)) {
+                Emitter.instance.emit(emitName.generate)
+            }
+            else {
+                this.isFull(arrayBlock)
+            }
         }
     },
-    moveDownCombined(listBlock, arrayBlock) {
-        this.moveDown(listBlock, arrayBlock)
-        this.combineColumnDown(listBlock, arrayBlock)
-        this.moveDown(listBlock, arrayBlock)
-        if(arrayBlock.includes(0)){
-            Emitter.instance.emit(emitName.generate)
+    moveUpCombined(listBlock, arrayBlock) {
+        if (this._canMove == true) {
+            this._canMove = false
+            this.moveUp(listBlock, arrayBlock)
+            this.combineColumnUp(listBlock, arrayBlock)
+            this.moveUp(listBlock, arrayBlock)
+            if (arrayBlock.includes(0)) {
+                Emitter.instance.emit(emitName.generate)
+            }
+            else {
+                this.isFull(arrayBlock)
+            }
+        }
 
-<<<<<<< Updated upstream
+    },
+    moveDownCombined(listBlock, arrayBlock) {
+        if (this._canMove == true) {
+            this._canMove = false
+            this.moveDown(listBlock, arrayBlock)
+            this.combineColumnDown(listBlock, arrayBlock)
+            this.moveDown(listBlock, arrayBlock)
+            if (arrayBlock.includes(0)) {
+                Emitter.instance.emit(emitName.generate)
+            }
+            else {
+                this.isFull(arrayBlock)
+            }
         }
-        else{
-            cc.log("full")
-        }
-    }
-=======
+
     },
     isFull(arrayBlock) {
         for (let index = 0; index < 16; index++) {
@@ -302,13 +300,8 @@ cc.Class({
             cc.log("you win")
         }
     },
->>>>>>> Stashed changes
 
-    // update (dt) {},
+
+    // update (dt) {
+    // },
 });
-/** 
-  Bugs:
-   => move down và move right chưa hoàn thiện (check lại điều kiện)
-   => tất cả các cột hết đườngg đi qua tay phải rồi vẫn hiện số
-
-**/

@@ -14,6 +14,7 @@ cc.Class({
         blockPrefab: cc.Prefab,
         _listBlock: [],
         _arrayBlock: [],
+        _canMove: true
     },
 
     onLoad() {
@@ -38,24 +39,25 @@ cc.Class({
     start() {
         for (let index = 0; index <= 15; index++) {
             let block = cc.instantiate(this.blockPrefab)
-            block.getComponent("block").labelPrefab.string = 0
+            block.getComponent("block").labelPrefab.string = ""
             block.parent = this.node
             this._arrayBlock.push(block.getComponent("block").labelPrefab.string)
             this._listBlock.push(block)
         }
+        cc.log(this._listBlock)
         this.generate()
         this.generate()
     },
     generate() {
-        let generateNumber = [2,4]
-        let random = generateNumber[Math.floor(Math.random()*generateNumber.length)]
+        let generateNumber = [2, 4]
+        let random = generateNumber[Math.floor(Math.random() * generateNumber.length)]
         let randomNumber = Math.floor(Math.random() * this._listBlock.length)
-        if (this._arrayBlock[randomNumber]==0) {
+        if (this._arrayBlock[randomNumber] == 0) {
             this._arrayBlock[randomNumber] = random
             this._listBlock[randomNumber].getComponent("block").labelPrefab.string = random
             cc.tween(this._listBlock[randomNumber])
-                .to(0, {scale:0, opacity: 0})
-                .to(0.2, {scale: 1, opacity: 255})
+                .to(0, { scale: 0, opacity: 0 })
+                .to(0.2, { scale: 1, opacity: 255 })
                 .start()
             // cc.log()
         } else { this.generate() }
@@ -117,7 +119,7 @@ cc.Class({
             case cc.macro.KEY.right:
                 this.moveRight()
                 break;
-                
+
             case cc.macro.KEY.w:
                 this.moveUp()
                 break;
@@ -135,18 +137,19 @@ cc.Class({
                 break;
 
         }
+
     },
-    moveUp :function() {
-        Emitter.instance.emit(emitName.moveUp, this._listBlock, this._arrayBlock,this.generate)
+    moveUp: function () {
+        Emitter.instance.emit(emitName.moveUp, this._listBlock, this._arrayBlock, this.generate)
     },
-    moveDown :function() {
-        Emitter.instance.emit(emitName.moveDown, this._listBlock, this._arrayBlock,this.generate)
+    moveDown: function () {
+        Emitter.instance.emit(emitName.moveDown, this._listBlock, this._arrayBlock, this.generate)
     },
-    moveLeft :function() {
-        Emitter.instance.emit(emitName.moveLeft, this._listBlock, this._arrayBlock,this.generate)
+    moveLeft: function () {
+        Emitter.instance.emit(emitName.moveLeft, this._listBlock, this._arrayBlock, this.generate)
     },
-    moveRight :function() {
-        Emitter.instance.emit(emitName.moveRight, this._listBlock, this._arrayBlock,this.generate)
+    moveRight: function () {
+        Emitter.instance.emit(emitName.moveRight, this._listBlock, this._arrayBlock, this.generate)
     },
 
     update(dt) {

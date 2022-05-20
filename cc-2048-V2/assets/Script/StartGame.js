@@ -31,15 +31,12 @@ cc.Class({
         cc.sys.localStorage.setItem(`userId${cc.sys.localStorage.length}`, JSON.stringify(newUser));
     },
     validateEditBox(){
-<<<<<<< Updated upstream
-=======
         for(let i = 0; i< cc.sys.localStorage.length; i++){
             if(JSON.parse(cc.sys.localStorage.getItem("userId"+i)).name == this.nameEditBox.string){
                 this.alertMessageBox("Your name have taken!");
                 return false;
             }
         }
->>>>>>> Stashed changes
         if(!this.nameEditBox.string) {
             this.alertMessageBox("Please enter your name!");
             return false;
