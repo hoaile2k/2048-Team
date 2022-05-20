@@ -26,20 +26,6 @@ cc.Class({
     textChange(value){
         this.username.string = value;
     },
-    sortScore(){
-        let arrLocal = cc.sys.localStorage;
-        let temp;
-        for(let i=0;i<arrLocal.length-1;i++){
-            for(let j=1;j<arrLocal.length;j++){
-                if(JSON.parse(arrLocal.getItem("userId"+i)).score < JSON.parse(arrLocal.getItem("userId"+j)).score){
-                    temp = arrLocal.getItem("userId"+i);
-                    arrLocal.setItem(`userId${i}`, arrLocal.getItem("userId"+j));
-                    arrLocal.setItem(`userId${j}`, temp);
-                }
-            }
-            sortArr.push(temp);
-        }
-    },
     addLeadBoard(){
         if(!cc.sys.localStorage.length){
             return;
@@ -54,9 +40,6 @@ cc.Class({
                 this.content.height += 10;
             }
         }
-    },
-    loadHowToPlay(){
-
     },
     loadLeadBoard(){
         if(!this._flag){
@@ -81,8 +64,7 @@ cc.Class({
         }
     },
     start () {
-        this.sortScore();
-        this.addLeadBoard();
+
     },
 
     update (dt) {
