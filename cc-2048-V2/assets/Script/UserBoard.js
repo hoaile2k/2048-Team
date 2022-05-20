@@ -1,5 +1,9 @@
 const Emitter = require("mEmitter")
 const emitName = require("emitName")
+<<<<<<< Updated upstream
+=======
+var sortArr = []
+>>>>>>> Stashed changes
 cc.Class({
     extends: cc.Component,
 
@@ -11,6 +15,10 @@ cc.Class({
         content: cc.Node,
         _offBoard: null,
         _flag: false,
+<<<<<<< Updated upstream
+=======
+        _flagSort: false,
+>>>>>>> Stashed changes
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -22,6 +30,24 @@ cc.Class({
         cc.log(value);
         this.username.string = value;
     },
+<<<<<<< Updated upstream
+=======
+    sortScore(){
+        let arrLocal = cc.sys.localStorage;
+        let max;
+        for(let i=0;i<arrLocal.length;i++){
+            let temp = JSON.parse(arrLocal.getItem("userId"+i));
+            for(let j=1;j<arrLocal.length;j++){
+                if(temp.score < JSON.parse(arrLocal.getItem("userId"+j)).score){
+                    max = JSON.parse(arrLocal.getItem("userId"+j));
+                }else{
+                    max = temp;
+                }
+            }
+            sortArr.push(max);
+        }
+    },
+>>>>>>> Stashed changes
     addLeadBoard(){
         if(!cc.sys.localStorage.length){
             return;
@@ -41,13 +67,31 @@ cc.Class({
     loadLeadBoard(){
         if(!this._flag){
             this._flag = true;
+<<<<<<< Updated upstream
             this.leadBoard.runAction(cc.moveBy(0.3,0,-700));
+=======
+            this.leadBoard.runAction(cc.sequence(
+                cc.callFunc(()=>{this.boardGame.getComponent(cc.Sprite).node.off("mousedown")}),
+                cc.moveBy(0.3,0,-700),
+                cc.delayTime(1.5),
+                cc.callFunc(()=>{this.boardGame.getComponent(cc.Sprite).node.on("mousedown",this.unloadLeadBoard,this)}),
+            ));
+>>>>>>> Stashed changes
         }
     },
     unloadLeadBoard(){
         if(this._flag){
             this._flag = false;
+<<<<<<< Updated upstream
             this.leadBoard.runAction(cc.moveBy(0.3,0,700));
+=======
+            this.leadBoard.runAction(cc.sequence(
+                cc.callFunc(()=>{this.boardGame.getComponent(cc.Sprite).node.off("mousedown")}),
+                cc.moveBy(0.3,0,700),
+                cc.delayTime(1.5),
+                cc.callFunc(()=>{this.boardGame.getComponent(cc.Sprite).node.on("mousedown",this.unloadLeadBoard,this)}),
+            ));
+>>>>>>> Stashed changes
         }
     },
     start () {
