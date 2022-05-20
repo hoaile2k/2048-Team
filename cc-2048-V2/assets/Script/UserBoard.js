@@ -5,8 +5,10 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
+        nameOnBoardGame: cc.Label,
         username: cc.Label,
         leadBoard: cc.Node,
+        howToPlayBoad: cc.Node,
         boardGame:cc.Node,
         userList: cc.Prefab,
         content: cc.Node,
@@ -18,6 +20,7 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
+        this.nameOnBoardGame.string = this.username.string;
         this.boardGame.getComponent(cc.Sprite).node.on("mousedown",this.unloadLeadBoard,this);
     },
     textChange(value){
@@ -26,17 +29,16 @@ cc.Class({
     },
     sortScore(){
         let arrLocal = cc.sys.localStorage;
-        let max;
-        for(let i=0;i<arrLocal.length;i++){
-            let temp = JSON.parse(arrLocal.getItem("userId"+i));
+        let temp;
+        for(let i=0;i<arrLocal.length-1;i++){
             for(let j=1;j<arrLocal.length;j++){
-                if(temp.score < JSON.parse(arrLocal.getItem("userId"+j)).score){
-                    max = JSON.parse(arrLocal.getItem("userId"+j));
-                }else{
-                    max = temp;
+                if(JSON.parse(arrLocal.getItem("userId"+i)).score < JSON.parse(arrLocal.getItem("userId"+j)).score){
+                    temp = arrLocal.getItem("userId"+i);
+                    arrLocal.setItem(`userId${i}`, arrLocal.getItem("userId"+j));
+                    arrLocal.setItem(`userId${j}`, temp);
                 }
             }
-            sortArr.push(max);
+            sortArr.push(temp);
         }
     },
     addLeadBoard(){
@@ -54,6 +56,9 @@ cc.Class({
                 this.content.height += 10;
             }
         }
+    },
+    loadHowToPlay(){
+
     },
     loadLeadBoard(){
         if(!this._flag){
@@ -78,6 +83,7 @@ cc.Class({
         }
     },
     start () {
+        this.sortScore();
         this.addLeadBoard();
     },
 
