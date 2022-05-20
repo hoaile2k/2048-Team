@@ -5,45 +5,70 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
+        score: cc.Label,
         nameOnBoardGame: cc.Label,
         username: cc.Label,
         leadBoard: cc.Node,
-        howToPlayBoad: cc.Node,
         boardGame:cc.Node,
         userList: cc.Prefab,
         content: cc.Node,
         _offBoard: null,
         _flag: false,
-        _flagSort: false,
     },
 
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
+        this.sortScore();
+        this.addLeadBoard();
         this.nameOnBoardGame.string = this.username.string;
         this.boardGame.getComponent(cc.Sprite).node.on("mousedown",this.unloadLeadBoard,this);
     },
     textChange(value){
+        cc.log(value);
         this.username.string = value;
     },
+    sortScore(){
+        let data = JSON.parse(cc.sys.localStorage.getItem("users"));
+        if (data != null) {
+            data = data.sort((a, b) => {
+                return b.score - a.score;
+            });
+        }
+        cc.sys.localStorage.setItem("users", JSON.stringify(data));
+    },
+    updateScore(){
+        let arrUsers = JSON.parse(cc.sys.localStorage.getItem("users"));
+        if(arrUsers){
+            for(let i=0;i<arrUsers.length;i++){
+                if(arrUsers[i].name == this.nameOnBoardGame.string){
+                    arrUsers[i].score = parseInt(this.score.string);
+                }
+            }
+            cc.sys.localStorage.setItem("users", JSON.stringify(arrUsers));
+        }else return;
+    },
     addLeadBoard(){
-        if(!cc.sys.localStorage.length){
+        let arrUsers = JSON.parse(cc.sys.localStorage.getItem("users"));
+        if(!arrUsers){
             return;
-        }else if(cc.sys.localStorage.length){
+        }else if(arrUsers){
             this.content.removeAllChildren();
-            for(let i=0;i<cc.sys.localStorage.length;i++){
+            for(let i=0;i<arrUsers.length;i++){
+                cc.log(arrUsers[i]);
                 let item = cc.instantiate(this.userList);
                 item.parent = this.content;
                 item.y = -10-(i*20);
-                item.getChildByName("username").getComponent(cc.Label).string = JSON.parse(cc.sys.localStorage.getItem(`userId${i}`)).name;
-                item.getChildByName("score").getComponent(cc.Label).string = JSON.parse(cc.sys.localStorage.getItem(`userId${i}`)).score;
-                this.content.height += 10;
+                item.getChildByName("username").getComponent(cc.Label).string = arrUsers[i].name;
+                item.getChildByName("score").getComponent(cc.Label).string = arrUsers[i].score;
+                this.content.height += 2;
             }
         }
     },
     loadLeadBoard(){
         if(!this._flag){
             this._flag = true;
+            this.addLeadBoard();
             this.leadBoard.runAction(cc.sequence(
                 cc.callFunc(()=>{this.boardGame.getComponent(cc.Sprite).node.off("mousedown")}),
                 cc.moveBy(0.3,0,-700),
@@ -64,10 +89,10 @@ cc.Class({
         }
     },
     start () {
-
+        
     },
 
     update (dt) {
-        
+        this.updateScore();
     },
 });

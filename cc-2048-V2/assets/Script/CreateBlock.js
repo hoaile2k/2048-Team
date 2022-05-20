@@ -9,9 +9,9 @@ const DIRECTION = cc.Enum({
 
 cc.Class({
     extends: cc.Component,
-
     properties: {
         blockPrefab: cc.Prefab,
+        getScore: cc.Label,
         _listBlock: [],
         _arrayBlock: [],
         _canMove: true
@@ -44,6 +44,7 @@ cc.Class({
         this.node.removeAllChildren()
         this._arrayBlock = []
         this._listBlock = []
+        this.getScore.string = 0
         this.createBlock()
     },
     createBlock(){
