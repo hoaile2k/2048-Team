@@ -1,5 +1,5 @@
 const Emitter = require("mEmitter")
-const emitName = require("emitName");
+const emitName = require("emitName")
 var sortArr = []
 cc.Class({
     extends: cc.Component,
@@ -37,20 +37,15 @@ cc.Class({
         cc.sys.localStorage.setItem("users", JSON.stringify(data));
     },
     updateScore(){
-        let arrUsers = JSON.parse(cc.sys.localStorage.getItem("users"));
-        if(arrUsers){
-            cc.log(this.score)
-            
-            for(let i=0;i<arrUsers.length;i++){
-                if(this.score.string != null){{
-                    if(arrUsers[i].name == this.nameOnBoardGame.string){
-                        arrUsers[i].score = parseInt(this.score.string);
-                    }
-                }}
-                
-            }
-            cc.sys.localStorage.setItem("users", JSON.stringify(arrUsers));
-        }else return;
+        // let arrUsers = JSON.parse(cc.sys.localStorage.getItem("users"));
+        // if(arrUsers){
+        //     for(let i=0;i<arrUsers.length;i++){
+        //         if(arrUsers[i].name == this.nameOnBoardGame.string){
+        //             arrUsers[i].score = parseInt(this.score.string);
+        //         }
+        //     }
+        //     cc.sys.localStorage.setItem("users", JSON.stringify(arrUsers));
+        // }else return;
     },
     addLeadBoard(){
         let arrUsers = JSON.parse(cc.sys.localStorage.getItem("users"));
@@ -96,6 +91,6 @@ cc.Class({
     },
 
     update (dt) {
-        
+        this.updateScore();
     },
 });

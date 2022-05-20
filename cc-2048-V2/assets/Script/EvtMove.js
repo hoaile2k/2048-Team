@@ -20,7 +20,7 @@ cc.Class({
     },
 
     start () {
-        cc.log(this._width)
+        
     },
     moveUp(listBlock, arrayBlock) {
         for (let index = 0; index < 4; index++) {
