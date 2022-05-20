@@ -1,7 +1,7 @@
 {
   "ver": "1.2.4",
-  "uuid": "364021a1-b9d1-480a-bc32-e6a2379249ff",
-  "rawTextureUuid": "df50893c-7578-4a67-8a2b-1bfc2a6ad82c",
+  "uuid": "53081036-c4c2-4bc7-bba8-a303bef29fa7",
+  "rawTextureUuid": "d0fa5d93-eb24-4e74-b3f6-68a622a03a7c",
   "size": {
     "width": 256,
     "height": 512
@@ -10,8 +10,8 @@
   "subMetas": {
     "button_01.png": {
       "ver": "1.0.4",
-      "uuid": "2cf0410c-bf09-421f-b2ef-755ac890e9d7",
-      "rawTextureUuid": "df50893c-7578-4a67-8a2b-1bfc2a6ad82c",
+      "uuid": "6bdf773d-f1e3-496c-9654-36554446d9c5",
+      "rawTextureUuid": "d0fa5d93-eb24-4e74-b3f6-68a622a03a7c",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,
@@ -32,8 +32,8 @@
     },
     "button_02.png": {
       "ver": "1.0.4",
-      "uuid": "c1c3e26e-2e02-4669-add7-5cd47d28bccb",
-      "rawTextureUuid": "df50893c-7578-4a67-8a2b-1bfc2a6ad82c",
+      "uuid": "20ea83cb-c740-4c9f-8fd5-da30585a1ab5",
+      "rawTextureUuid": "d0fa5d93-eb24-4e74-b3f6-68a622a03a7c",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,
@@ -54,8 +54,8 @@
     },
     "button_03.png": {
       "ver": "1.0.4",
-      "uuid": "453e5526-5b86-4a78-a4e5-89ee009f3f5b",
-      "rawTextureUuid": "df50893c-7578-4a67-8a2b-1bfc2a6ad82c",
+      "uuid": "a85484fd-9fb8-41bb-9247-102d84281633",
+      "rawTextureUuid": "d0fa5d93-eb24-4e74-b3f6-68a622a03a7c",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,
@@ -76,8 +76,8 @@
     },
     "button_04.png": {
       "ver": "1.0.4",
-      "uuid": "4050d9c9-0f01-4047-9fa7-8a3cafb11b9e",
-      "rawTextureUuid": "df50893c-7578-4a67-8a2b-1bfc2a6ad82c",
+      "uuid": "304b7670-5805-42cf-8d00-ad0ca0ac7493",
+      "rawTextureUuid": "d0fa5d93-eb24-4e74-b3f6-68a622a03a7c",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,

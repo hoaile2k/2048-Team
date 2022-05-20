@@ -9,5 +9,6 @@ const name = {
     aniMoveDown: "animovedown",
     aniMoveLeft: "animoveleft",
     aniMoveRight: "animoveright",
+    resetGame: "reset_game"
 }
 module.exports = name

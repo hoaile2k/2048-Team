@@ -12,6 +12,7 @@ cc.Class({
         getCell: cc.Prefab,
         getParentNode: cc.Component,
         getScore: cc.Label,
+
     },
 
     onLoad() {
@@ -31,9 +32,9 @@ cc.Class({
         this.canMoveUp = true
         this.canMoveDown = true
 
-        this.schedule(()=>{
+        this.schedule(() => {
             this._canMove = true
-        },0.3)
+        }, 0.3)
     },
 
     moveUp(listBlock, arrayBlock) {
@@ -150,6 +151,8 @@ cc.Class({
                     let combinedTotal = arrayBlock[index] + arrayBlock[index + 1]
                     listBlock[index].getComponent("block").labelPrefab.string = combinedTotal
                     listBlock[index + 1].getComponent("block").labelPrefab.string = 0
+                    if(arrayBlock[index]!=0)
+                        listBlock[index].runAction(cc.sequence(cc.scaleTo(0.1,1.1),cc.scaleTo(0.1,1)))
                     arrayBlock[index] = combinedTotal
                     arrayBlock[index + 1] = 0
                     let score = parseInt(this.getScore.string)
@@ -163,20 +166,17 @@ cc.Class({
     combineRowRight(listBlock, arrayBlock) {
         for (let index = 15; index >= 0; index--) {
             if (arrayBlock[index] === arrayBlock[index + 1]) {
-
-                if ((index + 1) % 4 == 0) {
-
-                }
-                else {
+                if ((index + 1) % 4 != 0) {
                     let combinedTotal = arrayBlock[index] + arrayBlock[index + 1]
                     listBlock[index + 1].getComponent("block").labelPrefab.string = combinedTotal
                     listBlock[index].getComponent("block").labelPrefab.string = 0
                     arrayBlock[index + 1] = combinedTotal
                     arrayBlock[index] = 0
+                    if(arrayBlock[index+1]!=0)
+                        listBlock[index+ 1].runAction(cc.sequence(cc.scaleTo(0.1,1.1),cc.scaleTo(0.1,1)))
                     let score = parseInt(this.getScore.string)
                     this.getScore.string = score + combinedTotal
                     this.isWinning(combinedTotal)
-
                 }
             }
 
@@ -188,7 +188,8 @@ cc.Class({
                 let combinedTotal = arrayBlock[index] + arrayBlock[index + this._width]
                 listBlock[index].getComponent("block").labelPrefab.string = combinedTotal
                 listBlock[index + this._width].getComponent("block").labelPrefab.string = 0
-
+                if(arrayBlock[index]!=0)
+                    listBlock[index].runAction(cc.sequence(cc.scaleTo(0.1,1.1),cc.scaleTo(0.1,1)))
                 arrayBlock[index] = combinedTotal
                 arrayBlock[index + this._width] = 0
                 let score = parseInt(this.getScore.string)
@@ -206,12 +207,15 @@ cc.Class({
                 listBlock[index + this._width].getComponent("block").labelPrefab.string = 0
                 arrayBlock[index] = combinedTotal
                 arrayBlock[index + this._width] = 0
+                if(arrayBlock[index]!=0)
+                    listBlock[index + this._width].runAction(cc.sequence(cc.scaleTo(0.1,1.1),cc.scaleTo(0.1,1)))
                 let score = parseInt(this.getScore.string)
                 this.getScore.string = score + combinedTotal
                 this.isWinning(combinedTotal)
             }
         }
     },
+    
     moveRightCombined(listBlock, arrayBlock) {
         if (this._canMove == true) {
             this._canMove = false
@@ -271,37 +275,63 @@ cc.Class({
 
     },
     isFull(arrayBlock) {
+        let countVerFalse = 0
+        let countHorFalse = 0
+        let vert1 = false
+        let vert2 = false
+        let vert3 = false
+        let hor1 = false
+        let hor2 = false
+        let hor3 = false
         for (let index = 0; index < 16; index++) {
-            if(index%4==0){
-                if(arrayBlock[index]!= arrayBlock[index+1] && arrayBlock[index+1]!= arrayBlock[index+2]&&arrayBlock[index+2]!= arrayBlock[index+3])
-                    this._canMoveVertical = false
+            if (index % 4 == 0) {
+                vert1 = arrayBlock[index] != arrayBlock[index + 1]
+                vert2 = arrayBlock[index + 1] != arrayBlock[index + 2]
+                vert3 = arrayBlock[index + 2] != arrayBlock[index + 3]
+                if (vert1 && vert2 && vert3) {
+                    countVerFalse++
+                }
+                else{
+                    countVerFalse--
+                }
             }
         }
-        for(let index = 0; index < 4; index ++){
+        for (let index = 0; index < 4; index++) {
             let width = this._width
-            let isIndex = arrayBlock[index]!= arrayBlock[index + width]
-            let isIndex1 = arrayBlock[index + 1]!= arrayBlock[index + (width * 2)]
-            let isIndex2 = arrayBlock[index + (width * 2)]!= arrayBlock[index + (width * 3)]
-            if(isIndex&& isIndex1&&isIndex2)
-                this._canMoveHorizontal = true
-            // if(arrayBlock[index]!= arrayBlock[index + width] )
+            hor1 = arrayBlock[index] != arrayBlock[index + width]
+            hor2 = arrayBlock[index + width] != arrayBlock[index + (width * 2)]
+            hor3 = arrayBlock[index + (width * 2)] != arrayBlock[index + (width * 3)]
+            if (hor1 && hor2 && hor3) {
+                countHorFalse++
+            }    
+            else{
+                countHorFalse--
+            }
         }
-        
-        if (!this._canMoveHorizontal && !this._canMoveVertical) {
-            cc.log('lose')
+        cc.log("Hor: ", countHorFalse, "Ver: ", countVerFalse)
+        if(countHorFalse==4 && countVerFalse==4){
+            this.isLosing()
         }
-        else{
-            this._canMoveHorizontal = true
-            this._canMoveVertical = true
-        }
+    },
+    isLosing(){
+        cc.log("losing")
+        cc.systemEvent.off(cc.SystemEvent.EventType.KEY_UP)
     },
     isWinning(total) {
         if (total == 2048) {
-            cc.log("you win")
+            cc.log("win")
         }
     },
 
 
     // update (dt) {
     // },
+    onDestroy(){
+        cc.systemEvent.off(cc.SystemEvent.EventType.KEY_UP)
+        
+        Emitter.instance.removeEvent(emitName.moveUp, this.evtMoveUp)
+        Emitter.instance.removeEvent(emitName.moveDown, this.evtMoveDown)
+        Emitter.instance.removeEvent(emitName.moveLeft, this.evtMoveLeft)
+        Emitter.instance.removeEvent(emitName.moveRight, this.evtMoveRight)
+    }
 });

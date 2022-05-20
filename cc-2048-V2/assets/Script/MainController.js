@@ -62,7 +62,12 @@ cc.Class({
             }
         }
     },
-
+    resetGame(){
+        Emitter.instance.emit(emitName.resetGame)
+    },
 
     // update (dt) {},
+    onDestroy(){
+        Emitter.instance.removeEvent(emitName.blockColor, this.evtSetColor)
+    }
 });

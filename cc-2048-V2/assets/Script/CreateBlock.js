@@ -18,7 +18,6 @@ cc.Class({
     },
 
     onLoad() {
-        cc.systemEvent.on(cc.SystemEvent.EventType.KEY_UP, this.onKeyUp.bind(this))
         this.node.on("touchstart", (event) => {
             this.startPoint = event.getLocation();
         })
@@ -31,12 +30,24 @@ cc.Class({
             this.reflectTouch();
         })
 
-
         this.evtGenerate = this.generate.bind(this)
+        this.evtResetGame = this.resetGame.bind(this)
+        Emitter.instance.registerEvent(emitName.resetGame, this.evtResetGame)
         Emitter.instance.registerEvent(emitName.generate, this.evtGenerate)
     },
 
     start() {
+       
+        this.createBlock()
+    },
+    resetGame(){
+        this.node.removeAllChildren()
+        this._arrayBlock = []
+        this._listBlock = []
+        this.createBlock()
+    },
+    createBlock(){
+        cc.systemEvent.on(cc.SystemEvent.EventType.KEY_UP, this.onKeyUp.bind(this))
         for (let index = 0; index <= 15; index++) {
             let block = cc.instantiate(this.blockPrefab)
             block.getComponent("block").labelPrefab.string = ""
@@ -44,7 +55,6 @@ cc.Class({
             this._arrayBlock.push(block.getComponent("block").labelPrefab.string)
             this._listBlock.push(block)
         }
-        cc.log(this._listBlock)
         this.generate()
         this.generate()
     },
@@ -59,7 +69,6 @@ cc.Class({
                 .to(0, { scale: 0, opacity: 0 })
                 .to(0.2, { scale: 1, opacity: 255 })
                 .start()
-            // cc.log()
         } else { this.generate() }
         Emitter.instance.emit(emitName.blockColor, this._listBlock, this._arrayBlock)
     },
@@ -152,8 +161,12 @@ cc.Class({
         Emitter.instance.emit(emitName.moveRight, this._listBlock, this._arrayBlock, this.generate)
     },
 
-    update(dt) {
+    // update(dt) {
 
-    },
+    // },
+    onDestroy(){
+        Emitter.instance.removeEvent(emitName.resetGame, this.evtResetGame)
+        Emitter.instance.removeEvent(emitName.generate, this.evtGenerate)
+    }
 
 });
