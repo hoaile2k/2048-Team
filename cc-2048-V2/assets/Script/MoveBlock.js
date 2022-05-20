@@ -1,9 +1,5 @@
 const Emitter = require("mEmitter")
 const emitName = require("emitName")
-const Color = require("color")
-const { thru } = require("lodash")
-let positionX = [80, 240, 400, 560]
-let positionY = [560, 400, 240, 80]
 cc.Class({
     extends: cc.Component,
 
@@ -11,6 +7,8 @@ cc.Class({
         _width: 4,
         _canMove: true,
         _isWin: false,
+        _canMoveVertical: true,
+        _canMoveHorizontal: true,
         getCell: cc.Prefab,
         getParentNode: cc.Component,
         getScore: cc.Label,
@@ -38,7 +36,7 @@ cc.Class({
         },0.3)
     },
 
-    moveUp(listBlock, arrayBlock, timeAction = 0.15) {
+    moveUp(listBlock, arrayBlock) {
         for (let index = 0; index < 4; index++) {
             let totalOne = arrayBlock[index]
             let totalTwo = arrayBlock[index + this._width]
@@ -56,7 +54,7 @@ cc.Class({
             listBlock[index + (this._width * 2)].getComponent("block").labelPrefab.string = newColumn[2]
             listBlock[index + (this._width * 3)].getComponent("block").labelPrefab.string = newColumn[3]
 
-            Emitter.instance.emit(emitName.aniMoveUp, arrayBlock, listBlock, this._canMove)
+            Emitter.instance.emit(emitName.aniMoveUp, arrayBlock, listBlock)
 
             arrayBlock[index] = newColumn[0]
             arrayBlock[index + this._width] = newColumn[1]
@@ -64,7 +62,7 @@ cc.Class({
             arrayBlock[index + (this._width * 3)] = newColumn[3]
         }
     },
-    moveDown(listBlock, arrayBlock, timeAction = 0.15) {
+    moveDown(listBlock, arrayBlock) {
         for (let index = 0; index < 4; index++) {
             let totalOne = arrayBlock[index]
             let totalTwo = arrayBlock[index + this._width]
@@ -82,7 +80,7 @@ cc.Class({
             listBlock[index + (this._width * 2)].getComponent("block").labelPrefab.string = newColumn[2]
             listBlock[index + (this._width * 3)].getComponent("block").labelPrefab.string = newColumn[3]
 
-            Emitter.instance.emit(emitName.aniMoveDown, arrayBlock, listBlock, this._canMove)
+            Emitter.instance.emit(emitName.aniMoveDown, arrayBlock, listBlock)
 
             arrayBlock[index] = newColumn[0]
             arrayBlock[index + this._width] = newColumn[1]
@@ -90,7 +88,7 @@ cc.Class({
             arrayBlock[index + (this._width * 3)] = newColumn[3]
         }
     },
-    moveLeft(listBlock, arrayBlock, timeAction = 0.15) {
+    moveLeft(listBlock, arrayBlock) {
         for (let index = 0; index < 16; index++) {
             if (index % 4 === 0) {
                 let totalOne = arrayBlock[index]
@@ -108,7 +106,7 @@ cc.Class({
                 listBlock[index + 2].getComponent("block").labelPrefab.string = newRow[2]
                 listBlock[index + 3].getComponent("block").labelPrefab.string = newRow[3]
 
-                Emitter.instance.emit(emitName.aniMoveLeft, arrayBlock, listBlock, this._canMove)
+                Emitter.instance.emit(emitName.aniMoveLeft, arrayBlock, listBlock)
 
                 arrayBlock[index] = newRow[0]
                 arrayBlock[index + 1] = newRow[1]
@@ -117,7 +115,7 @@ cc.Class({
             }
         }
     },
-    moveRight(listBlock, arrayBlock, timeAction = 0.15) {
+    moveRight(listBlock, arrayBlock) {
         for (let index = 0; index < 16; index++) {
             if (index % 4 === 0) {
                 let totalOne = arrayBlock[index]
@@ -135,7 +133,7 @@ cc.Class({
                 listBlock[index + 2].getComponent("block").labelPrefab.string = newRow[2]
                 listBlock[index + 3].getComponent("block").labelPrefab.string = newRow[3]
 
-                Emitter.instance.emit(emitName.aniMoveRight, arrayBlock, listBlock, this._canMove)
+                Emitter.instance.emit(emitName.aniMoveRight, arrayBlock, listBlock)
 
                 arrayBlock[index] = newRow[0]
                 arrayBlock[index + 1] = newRow[1]
@@ -273,30 +271,28 @@ cc.Class({
 
     },
     isFull(arrayBlock) {
-        let canMoveVertical = true
-        let canMoveHorizontal = true
         for (let index = 0; index < 16; index++) {
-            let arr1 = arrayBlock[index]
-            let arr2 = arrayBlock[index + this._width]
-            let arr3 = arrayBlock[index + (this._width * 2)]
-            let arr4 = arrayBlock[index + (this._width * 3)]
-            //Vertical
-            if (arr1 != arr2 && arr2 != arr3 && arr3 != arr4) {
-                canMoveVertical = false
-            }
-            //Horizontal
-            if (index % 4 === 0) {
-                if (arrayBlock[index] != arrayBlock[index + 1]) {
-                    canMoveHorizontal = false
-                }
+            if(index%4==0){
+                if(arrayBlock[index]!= arrayBlock[index+1] && arrayBlock[index+1]!= arrayBlock[index+2]&&arrayBlock[index+2]!= arrayBlock[index+3])
+                    this._canMoveVertical = false
             }
         }
-        if (canMoveHorizontal && canMoveVertical) {
-            canMoveHorizontal = true
-            canMoveVertical = false
+        for(let index = 0; index < 4; index ++){
+            let width = this._width
+            let isIndex = arrayBlock[index]!= arrayBlock[index + width]
+            let isIndex1 = arrayBlock[index + 1]!= arrayBlock[index + (width * 2)]
+            let isIndex2 = arrayBlock[index + (width * 2)]!= arrayBlock[index + (width * 3)]
+            if(isIndex&& isIndex1&&isIndex2)
+                this._canMoveHorizontal = true
+            // if(arrayBlock[index]!= arrayBlock[index + width] )
         }
-        else {
-            cc.log("you lose")
+        
+        if (!this._canMoveHorizontal && !this._canMoveVertical) {
+            cc.log('lose')
+        }
+        else{
+            this._canMoveHorizontal = true
+            this._canMoveVertical = true
         }
     },
     isWinning(total) {
