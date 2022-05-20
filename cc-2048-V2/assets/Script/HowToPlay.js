@@ -1,4 +1,4 @@
-const { times } = require("lodash");
+const times  = require("lodash");
 
 cc.Class({
     extends: cc.Component,
