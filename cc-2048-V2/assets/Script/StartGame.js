@@ -44,7 +44,6 @@ cc.Class({
     },
     validateEditBox(){
         let arrUsers = JSON.parse(cc.sys.localStorage.getItem("users"));
-        cc.log(arrUsers);
         if(!arrUsers){
             this._flag = false;
             return true;

@@ -1,5 +1,5 @@
 const Emitter = require("mEmitter")
-const emitName = require("emitName")
+const emitName = require("emitName");
 var sortArr = []
 cc.Class({
     extends: cc.Component,
@@ -25,7 +25,6 @@ cc.Class({
         this.boardGame.getComponent(cc.Sprite).node.on("mousedown",this.unloadLeadBoard,this);
     },
     textChange(value){
-        cc.log(value);
         this.username.string = value;
     },
     sortScore(){
@@ -40,10 +39,15 @@ cc.Class({
     updateScore(){
         let arrUsers = JSON.parse(cc.sys.localStorage.getItem("users"));
         if(arrUsers){
+            cc.log(this.score)
+            
             for(let i=0;i<arrUsers.length;i++){
-                if(arrUsers[i].name == this.nameOnBoardGame.string){
-                    arrUsers[i].score = parseInt(this.score.string);
-                }
+                if(this.score.string != null){{
+                    if(arrUsers[i].name == this.nameOnBoardGame.string){
+                        arrUsers[i].score = parseInt(this.score.string);
+                    }
+                }}
+                
             }
             cc.sys.localStorage.setItem("users", JSON.stringify(arrUsers));
         }else return;
@@ -55,7 +59,6 @@ cc.Class({
         }else if(arrUsers){
             this.content.removeAllChildren();
             for(let i=0;i<arrUsers.length;i++){
-                cc.log(arrUsers[i]);
                 let item = cc.instantiate(this.userList);
                 item.parent = this.content;
                 item.y = -10-(i*20);
@@ -93,6 +96,6 @@ cc.Class({
     },
 
     update (dt) {
-        this.updateScore();
+        
     },
 });

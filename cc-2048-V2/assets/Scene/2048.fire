@@ -6060,7 +6060,9 @@
       "__id__": 166
     },
     "_enabled": true,
-    "score": null,
+    "score": {
+      "__id__": 82
+    },
     "nameOnBoardGame": {
       "__id__": 173
     },
