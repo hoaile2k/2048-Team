@@ -13,6 +13,7 @@ cc.Class({
         boardGame:cc.Node,
         userList: cc.Prefab,
         content: cc.Node,
+        get: cc.Canvas,
         _offBoard: null,
         _flag: false,
     },
@@ -24,6 +25,7 @@ cc.Class({
         this.addLeadBoard();
         this.nameOnBoardGame.string = this.username.string;
         this.boardGame.getComponent(cc.Sprite).node.on("mousedown",this.unloadLeadBoard,this);
+
     },
     textChange(value){
         this.username.string = value;
@@ -54,28 +56,30 @@ cc.Class({
         }
     },
     loadLeadBoard(){
-        if(!this._flag){
-            this._flag = true;
             this.sortScore();
             this.addLeadBoard();
             this.leadBoard.runAction(cc.sequence(
-                cc.callFunc(()=>{this.boardGame.getComponent(cc.Sprite).node.off("mousedown")}),
-                cc.moveBy(0.3,0,-700),
+                cc.moveTo(0.3,0,0),
                 cc.delayTime(1.5),
-                cc.callFunc(()=>{this.boardGame.getComponent(cc.Sprite).node.on("mousedown",this.unloadLeadBoard,this)}),
             ));
-        }
+        
     },
     unloadLeadBoard(){
+
         if(this._flag){
             this._flag = false;
             this.leadBoard.runAction(cc.sequence(
-                cc.callFunc(()=>{this.boardGame.getComponent(cc.Sprite).node.off("mousedown")}),
-                cc.moveBy(0.3,0,700),
+                cc.moveTo(0.3,0,1000),
                 cc.delayTime(1.5),
-                cc.callFunc(()=>{this.boardGame.getComponent(cc.Sprite).node.on("mousedown",this.unloadLeadBoard,this)}),
             ));
         }
+    },
+    hideLeadBoard(){
+        this.leadBoard.runAction(cc.sequence(
+            cc.moveBy(0.3,0,1000),
+            cc.delayTime(1.5)
+        ));
+        this._flag = false;
     },
     start () {
         
