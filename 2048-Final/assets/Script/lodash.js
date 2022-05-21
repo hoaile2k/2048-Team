@@ -1,0 +1,1 @@
+//this file for fix require lodash when build project =((
